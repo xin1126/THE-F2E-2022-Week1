@@ -5,11 +5,10 @@ module.exports = {
     extend: {
       // 自訂顏色
       colors: {
-        primary: '#155e75',
-        secondary: '#6b21a8',
-        success: '#065f46',
-        warning: '#d97706',
-        danger: '#991b1b',
+        primary: '#007FAB',
+        secondary: '#FF5136',
+        // success: '#065f46',
+        // danger: '#991b1b',
       },
     },
   },
