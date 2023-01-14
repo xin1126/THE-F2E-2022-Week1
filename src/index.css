@@ -1,3 +1,14 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  @font-face {
+    font-family: 'GenJyuuGothic';
+    src: url('./assets/font/GenJyuuGothic-Bold.ttf') format('truetype');
+  }
+
+  html {
+    font-family: GenJyuuGothic;
+  }
+}
