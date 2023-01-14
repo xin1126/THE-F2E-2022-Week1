@@ -1,10 +1,9 @@
-import logo from '@/assets/logo.svg'
+import FirstSection from './components/FirstSection'
 
 const Home: React.FC = () => {
   return (
-    <div className="flex flex-col items-center text-5xl">
-      <p>首頁</p>
-      <img className="w-2/4" src={logo} alt="logo" />
+    <div className="flex h-[300vh] flex-col items-center bg-[#ffc37d]">
+      <FirstSection />
     </div>
   )
 }

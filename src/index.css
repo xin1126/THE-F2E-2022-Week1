@@ -11,4 +11,8 @@
   html {
     font-family: GenJyuuGothic;
   }
+
+  img {
+    @apply object-contain
+  }
 }
