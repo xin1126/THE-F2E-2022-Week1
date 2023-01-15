@@ -23,7 +23,8 @@ const FirstSection: React.FC = () => {
   const headerGroupRef = useRef<HTMLDivElement>(null)
   const footerGroupRef = useRef<HTMLDivElement>(null)
 
-  const { setTroubledSectionStatus } = useContext<Context>(FatherContext)
+  const { distance, setDistance, setfooterDom } =
+    useContext<Context>(FatherContext)
 
   const handleGsap = () => {
     if (ScrollTrigger.getById('cloud')) return
@@ -113,11 +114,6 @@ const FirstSection: React.FC = () => {
       trigger: joinInfoGroupRef.current,
       onLeave() {
         handleFooter()
-        setTroubledSectionStatus(true)
-      },
-
-      onEnterBack() {
-        setTroubledSectionStatus(false)
       },
     })
   }
@@ -141,7 +137,11 @@ const FirstSection: React.FC = () => {
     ScrollTrigger.create({
       trigger: joinInfoGroupRef.current,
       onLeave() {
-        handleFooter()
+        setfooterDom(footerGroupRef.current)
+        setDistance(distance + 1)
+      },
+      onEnterBack() {
+        setDistance(distance - 1)
       },
     })
   }
