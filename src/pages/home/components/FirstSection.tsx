@@ -1,3 +1,5 @@
+import { FatherContext, Context } from '../index'
+
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
@@ -20,6 +22,8 @@ const FirstSection: React.FC = () => {
   const joinInfoGroupRef = useRef<HTMLUListElement>(null)
   const headerGroupRef = useRef<HTMLDivElement>(null)
   const footerGroupRef = useRef<HTMLDivElement>(null)
+
+  const { setTroubledSectionStatus } = useContext<Context>(FatherContext)
 
   const handleGsap = () => {
     // 雲區塊
@@ -63,8 +67,11 @@ const FirstSection: React.FC = () => {
   }
 
   const handleJoinInfo = () => {
+    if (ScrollTrigger.getById('joinInfo')) return
+
     const gsapJoinInfoGroup = gsap.timeline({
       scrollTrigger: {
+        id: 'joinInfo',
         trigger: joinInfoGroupRef.current,
         start: 'top 40%',
         scrub: true,
@@ -84,12 +91,14 @@ const FirstSection: React.FC = () => {
   }
 
   const handleHeader = () => {
+    if (ScrollTrigger.getById('header')) return
+
     const gsapHeader = gsap.timeline({
       scrollTrigger: {
+        id: 'header',
         trigger: joinInfoGroupRef.current,
         start: 'top 40%',
         scrub: true,
-        markers: true,
       },
     })
 
@@ -101,13 +110,21 @@ const FirstSection: React.FC = () => {
       trigger: joinInfoGroupRef.current,
       onLeave() {
         handleFooter()
+        setTroubledSectionStatus(true)
+      },
+
+      onEnterBack() {
+        setTroubledSectionStatus(false)
       },
     })
   }
 
   const handleFooter = () => {
+    if (ScrollTrigger.getById('footer')) return
+
     const gsapFooter = gsap.timeline({
       scrollTrigger: {
+        id: 'footer',
         trigger: joinInfoGroupRef.current,
         start: 'top 40%',
         scrub: true,
@@ -115,11 +132,18 @@ const FirstSection: React.FC = () => {
     })
 
     gsapFooter.to(footerGroupRef.current, {
-      width: '900px',
+      width: '800px',
+    })
+
+    ScrollTrigger.create({
+      trigger: joinInfoGroupRef.current,
+      onLeave() {
+        handleFooter()
+      },
     })
   }
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     handleGsap()
   }, [])
 
