@@ -26,10 +26,13 @@ const FirstSection: React.FC = () => {
   const { setTroubledSectionStatus } = useContext<Context>(FatherContext)
 
   const handleGsap = () => {
+    if (ScrollTrigger.getById('cloud')) return
+
     // 雲區塊
     const gsapCloudGroup = gsap.timeline({
       scrollTrigger: {
         trigger: cloudGroupRef.current,
+        start: 'top 40%',
         scrub: true,
       },
     })
@@ -47,6 +50,7 @@ const FirstSection: React.FC = () => {
       scrollTrigger: {
         trigger: cloudGroupRef.current,
         scrub: true,
+        start: 'top 40%',
       },
     })
 
@@ -59,6 +63,7 @@ const FirstSection: React.FC = () => {
       })
 
     ScrollTrigger.create({
+      id: 'cloud',
       trigger: cloudGroupRef.current,
       onLeave() {
         handleJoinInfo()
@@ -67,8 +72,6 @@ const FirstSection: React.FC = () => {
   }
 
   const handleJoinInfo = () => {
-    if (ScrollTrigger.getById('joinInfo')) return
-
     const gsapJoinInfoGroup = gsap.timeline({
       scrollTrigger: {
         id: 'joinInfo',
@@ -144,7 +147,10 @@ const FirstSection: React.FC = () => {
   }
 
   useLayoutEffect(() => {
-    handleGsap()
+    setTimeout(() => {
+      window.scrollTo(0, 0)
+      handleGsap()
+    }, 500)
   }, [])
 
   return (

@@ -88,9 +88,7 @@ const TroubledSection: React.FC = () => {
           ref={question2Ref}
           className="flex w-[420px] flex-col items-center opacity-0"
         >
-          <p className="mb-4 text-3xl text-secondary">
-            羨慕別人的酷酷網頁動畫？
-          </p>
+          <p className="mb-4 text-3xl text-secondary">滿足不了同事的許願？</p>
           <img className="h-[300px]" src={question2} alt="question2" />
         </div>
         <div
@@ -98,7 +96,7 @@ const TroubledSection: React.FC = () => {
           className="flex w-[420px] flex-col items-center opacity-0"
         >
           <p className="mb-4 text-3xl text-secondary">
-            羨慕別人的酷酷網頁動畫？
+            動畫技能樹太雜無從下手？
           </p>
           <img className="h-[300px]" src={question3} alt="question3" />
         </div>

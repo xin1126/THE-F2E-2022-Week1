@@ -16,12 +16,6 @@ export const FatherContext = createContext<Context>({
 const Home: React.FC = () => {
   const [troubledSectionStatus, setTroubledSectionStatus] = useState(false)
 
-  useEffect(() => {
-    setTimeout(() => {
-      window.scrollTo(0, 0)
-    }, 500)
-  }, [])
-
   return (
     <FatherContext.Provider
       value={{ troubledSectionStatus, setTroubledSectionStatus }}
