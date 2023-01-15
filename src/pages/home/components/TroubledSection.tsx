@@ -1,3 +1,5 @@
+import { FatherContext, Context } from '../index'
+
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
@@ -9,18 +11,23 @@ import question3 from '@/assets/images/main/question_3.png'
 gsap.registerPlugin(ScrollTrigger)
 
 const TroubledSection: React.FC = () => {
-  const talkRef = useRef<HTMLDivElement>(null)
+  const troubledTalkRef = useRef<HTMLDivElement>(null)
   const question1Ref = useRef<HTMLDivElement>(null)
   const question2Ref = useRef<HTMLDivElement>(null)
   const question3Ref = useRef<HTMLDivElement>(null)
+
+  const { distance, setDistance } = useContext<Context>(FatherContext)
 
   const handleQuestion = () => {
     const gsapRef = gsap.timeline({
       scrollTrigger: {
         id: 'questionRef',
         trigger: question1Ref.current,
-        end: '+=3000',
+        end: '+=4000',
         scrub: true,
+      },
+      onComplete() {
+        setDistance(distance + 1)
       },
     })
 
@@ -42,14 +49,36 @@ const TroubledSection: React.FC = () => {
         opacity: 1,
         x: 0,
       })
+      .to(
+        [
+          question1Ref.current,
+          question2Ref.current,
+          question3Ref.current,
+          troubledTalkRef.current,
+        ],
+        {
+          opacity: 0.5,
+        }
+      )
+      .to(
+        [
+          question1Ref.current,
+          question2Ref.current,
+          question3Ref.current,
+          troubledTalkRef.current,
+        ],
+        {
+          opacity: 0,
+        }
+      )
   }
 
   useLayoutEffect(() => {
-    gsap.fromTo(talkRef.current, { opacity: 0 }, { opacity: 1 })
+    gsap.fromTo(troubledTalkRef.current, { opacity: 0 }, { opacity: 1 })
 
     ScrollTrigger.create({
-      id: 'talkRef',
-      trigger: talkRef.current,
+      id: 'troubledTalkRef',
+      trigger: troubledTalkRef.current,
       onLeave() {
         handleQuestion()
       },
@@ -60,15 +89,18 @@ const TroubledSection: React.FC = () => {
         ScrollTrigger.getById('questionRef')?.kill()
       }
 
-      if (ScrollTrigger.getById('talkRef')) {
-        ScrollTrigger.getById('talkRef')?.kill()
+      if (ScrollTrigger.getById('troubledTalkRef')) {
+        ScrollTrigger.getById('troubledTalkRef')?.kill()
       }
     }
   }, [])
 
   return (
     <div className="fixed top-10">
-      <div className="relative mx-auto mb-16 max-w-[600px]" ref={talkRef}>
+      <div
+        className="relative mx-auto mb-16 max-w-[600px]"
+        ref={troubledTalkRef}
+      >
         <img src={talk} alt="talk" />
         <p className="absolute top-10 w-full text-center text-5xl text-primary">
           你是否也有以下困擾
