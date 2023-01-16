@@ -18,16 +18,15 @@ const TroubledSection: React.FC = () => {
 
   const { distance, setDistance } = useContext<Context>(FatherContext)
 
-  const handleQuestion = () => {
+  const handleQuestion1 = () => {
+    if (ScrollTrigger.getById('questionRef1')) return
+
     const gsapRef = gsap.timeline({
       scrollTrigger: {
-        id: 'questionRef',
+        id: 'questionRef1',
+        start: 'top 50%',
         trigger: question1Ref.current,
-        end: '+=4000',
         scrub: true,
-      },
-      onComplete() {
-        setDistance(distance + 1)
       },
     })
 
@@ -39,9 +38,52 @@ const TroubledSection: React.FC = () => {
         opacity: 1,
         x: 0,
       })
-      .to(question2Ref.current, {
-        opacity: 1,
-      })
+
+    ScrollTrigger.create({
+      trigger: question1Ref.current,
+      onLeave() {
+        handleQuestion2()
+      },
+    })
+  }
+
+  const handleQuestion2 = () => {
+    if (ScrollTrigger.getById('questionRef2')) return
+
+    const gsapRef = gsap.timeline({
+      scrollTrigger: {
+        id: 'questionRef2',
+        start: 'top 50%',
+        trigger: question1Ref.current,
+        scrub: true,
+      },
+    })
+
+    gsapRef.to(question2Ref.current, {
+      opacity: 1,
+    })
+
+    ScrollTrigger.create({
+      trigger: question1Ref.current,
+      onLeave() {
+        handleQuestion3()
+      },
+    })
+  }
+
+  const handleQuestion3 = () => {
+    if (ScrollTrigger.getById('questionRef3')) return
+
+    const gsapRef = gsap.timeline({
+      scrollTrigger: {
+        id: 'questionRef3',
+        start: 'top 50%',
+        trigger: question1Ref.current,
+        scrub: true,
+      },
+    })
+
+    gsapRef
       .to(question3Ref.current, {
         x: 200,
       })
@@ -49,6 +91,29 @@ const TroubledSection: React.FC = () => {
         opacity: 1,
         x: 0,
       })
+
+    ScrollTrigger.create({
+      trigger: question1Ref.current,
+      onLeave() {
+        handleExit()
+      },
+    })
+  }
+
+  const handleExit = () => {
+    if (ScrollTrigger.getById('exit')) return
+
+    const gsapRef = gsap.timeline({
+      scrollTrigger: {
+        id: 'exit',
+        start: 'top 50%',
+        markers: true,
+        trigger: question1Ref.current,
+        scrub: true,
+      },
+    })
+
+    gsapRef
       .to(
         [
           question1Ref.current,
@@ -71,34 +136,51 @@ const TroubledSection: React.FC = () => {
           opacity: 0,
         }
       )
+
+    ScrollTrigger.create({
+      trigger: question1Ref.current,
+      onLeave() {
+        setDistance(distance + 1)
+      },
+    })
+  }
+
+  const handleTalk = () => {
+    if (ScrollTrigger.getById('troubledTalk')) return
+
+    const gsapRef = gsap.timeline({
+      scrollTrigger: {
+        id: 'troubledTalk',
+        start: 'top 50%',
+        markers: true,
+        trigger: question1Ref.current,
+        scrub: true,
+      },
+    })
+    gsapRef.to(troubledTalkRef.current, { opacity: 1 })
+
+    ScrollTrigger.create({
+      trigger: question1Ref.current,
+      onLeave() {
+        handleQuestion1()
+      },
+    })
   }
 
   useLayoutEffect(() => {
-    gsap.fromTo(troubledTalkRef.current, { opacity: 0 }, { opacity: 1 })
-
     ScrollTrigger.create({
       id: 'troubledTalkRef',
       trigger: troubledTalkRef.current,
       onLeave() {
-        handleQuestion()
+        handleTalk()
       },
     })
-
-    return () => {
-      if (ScrollTrigger.getById('questionRef')) {
-        ScrollTrigger.getById('questionRef')?.kill()
-      }
-
-      if (ScrollTrigger.getById('troubledTalkRef')) {
-        ScrollTrigger.getById('troubledTalkRef')?.kill()
-      }
-    }
   }, [])
 
   return (
     <div className="fixed top-10">
       <div
-        className="relative mx-auto mb-16 max-w-[600px]"
+        className="relative mx-auto mb-16 max-w-[600px] opacity-0"
         ref={troubledTalkRef}
       >
         <img src={talk} alt="talk" />

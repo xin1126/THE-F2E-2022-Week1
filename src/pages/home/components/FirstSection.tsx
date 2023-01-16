@@ -140,9 +140,6 @@ const FirstSection: React.FC = () => {
         setfooterDom(footerGroupRef.current)
         setDistance(distance + 1)
       },
-      onEnterBack() {
-        setDistance(distance - 1)
-      },
     })
   }
 

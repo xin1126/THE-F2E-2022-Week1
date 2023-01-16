@@ -17,13 +17,15 @@ const ThemeSection: React.FC = () => {
     useContext<Context>(FatherContext)
 
   const handleQuestion = () => {
+    if (ScrollTrigger.getById('btnGroupRef')) return
+
     const gsapRef = gsap.timeline({
       scrollTrigger: {
         id: 'btnGroupRef',
         trigger: btnGroupRef.current,
         scrub: true,
       },
-      onComplete() {
+      onLeave() {
         setDistance(distance + 1)
       },
     })
@@ -42,35 +44,49 @@ const ThemeSection: React.FC = () => {
       })
   }
 
-  useLayoutEffect(() => {
-    gsap.fromTo(themeTalkRef.current, { opacity: 0 }, { opacity: 1 })
+  const handleTalk = () => {
     gsap.to(footerDom, { width: '1300px' })
+    if (ScrollTrigger.getById('themeTalk')) return
+
+    const gsapRef = gsap.timeline({
+      scrollTrigger: {
+        id: 'themeTalk',
+        start: 'top 50%',
+        markers: true,
+        trigger: themeTalkRef.current,
+        scrub: true,
+      },
+    })
+    gsapRef.to(themeTalkRef.current, { opacity: 1 })
 
     ScrollTrigger.create({
-      id: 'themeTalkRef',
       trigger: themeTalkRef.current,
       onLeave() {
         handleQuestion()
       },
+    })
+  }
+
+  useLayoutEffect(() => {
+    ScrollTrigger.create({
+      id: 'themeTalkRef',
+      trigger: themeTalkRef.current,
+      onLeave() {
+        handleTalk()
+      },
       onEnterBack() {
+        handleTalk()
         gsap.to(footerDom, { width: '800px' })
       },
     })
-
-    return () => {
-      if (ScrollTrigger.getById('btnGroupRef')) {
-        ScrollTrigger.getById('btnGroupRef')?.kill()
-      }
-
-      if (ScrollTrigger.getById('themeTalkRef')) {
-        ScrollTrigger.getById('themeTalkRef')?.kill()
-      }
-    }
   }, [])
 
   return (
     <div className="fixed top-10 z-10">
-      <div className="relative mx-auto mb-12 max-w-[700px]" ref={themeTalkRef}>
+      <div
+        className="relative mx-auto mb-12 max-w-[700px] opacity-0"
+        ref={themeTalkRef}
+      >
         <img src={talk} alt="talk" className="h-[160px] w-full" />
         <p className="absolute top-10 mb-6 w-full text-center text-5xl text-primary">
           本屆主題：互動式網頁設計
