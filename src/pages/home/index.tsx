@@ -18,11 +18,20 @@ export const FatherContext = createContext<Context>({
 
 const Home: React.FC = () => {
   const [distance, setDistance] = useState(0)
-  const [tempDistance, setTempDistance] = useState(0)
+  const [through, setThrough] = useState<string[]>([])
 
   useEffect(() => {
     if (!distance) return
-    setTempDistance((data) => data + 1)
+    switch (distance) {
+      case 1:
+        if (through.includes('troubled')) return
+        setThrough((data) => [...data, 'troubled'])
+        break
+      case 2:
+        if (through.includes('theme')) return
+        setThrough((data) => [...data, 'theme'])
+        break
+    }
   }, [distance])
 
   return (
@@ -30,8 +39,8 @@ const Home: React.FC = () => {
       <div className="flex h-[1500vh] flex-col items-center overflow-hidden bg-[#ffc37d]">
         <HeaderSection />
         <FirstSection />
-        {tempDistance > 0 && <TroubledSection />}
-        {tempDistance > 1 && <ThemeSection />}
+        {through.includes('troubled') && <TroubledSection />}
+        {through.includes('theme') && <ThemeSection />}
         <FooterSection />
       </div>
     </FatherContext.Provider>
