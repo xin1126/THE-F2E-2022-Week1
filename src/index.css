@@ -13,6 +13,6 @@
   }
 
   img {
-    @apply object-contain
+    @apply object-contain w-full
   }
 }

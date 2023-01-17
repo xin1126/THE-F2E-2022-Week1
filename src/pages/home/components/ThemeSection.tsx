@@ -2,8 +2,12 @@ import { FatherContext, Context } from '../index'
 import ScrollTarget, { ScrollTargetHandle } from '@/components/ScrollTarget'
 
 import talk from '@/assets/images/bg/bg_talking.png'
+import talkMoble from '@/assets/images/bg/bg_talking_c.png'
 import btn from '@/assets/images/btn/btn_join.png'
 import joinHand from '@/assets/images/btn/btn_joinHand.gif'
+import dog from '@/assets/images/character/character_f2e.png'
+import pig from '@/assets/images/character/character_team.png'
+import cat from '@/assets/images/character/character_ui.png'
 
 const ThemeSection: React.FC = () => {
   const themeTalkRef = useRef<HTMLDivElement>(null)
@@ -13,7 +17,7 @@ const ThemeSection: React.FC = () => {
   const { distance, setDistance } = useContext<Context>(FatherContext)
 
   const handleBtn = () => {
-    const useGsap = gsap.current.handleGsap('themeBtn', () => setDistance(distance + 1), true)
+    const useGsap = gsap.current?.handleGsap('themeBtn', () => setDistance(distance + 1), true)
     useGsap
       ?.to(btnGroupRef.current, {
         y: 200,
@@ -29,7 +33,7 @@ const ThemeSection: React.FC = () => {
   }
 
   const handleTalk = () => {
-    const useGsap = gsap.current.handleGsap('themeTalk', handleBtn)
+    const useGsap = gsap.current?.handleGsap('themeTalk', handleBtn)
     useGsap?.to(themeTalkRef.current, { opacity: 1 })
   }
 
@@ -40,27 +44,39 @@ const ThemeSection: React.FC = () => {
   return (
     <>
       <ScrollTarget ref={gsap} />
-      <div className="fixed top-10 z-10">
+      <div className="top-10 z-20 mt-[400px] w-full sm:fixed sm:mt-0 sm:w-auto">
         <div className="relative mx-auto mb-12 max-w-[700px] opacity-0" ref={themeTalkRef}>
-          <img src={talk} alt="talk" className="h-[160px] w-full" />
-          <p className="absolute top-10 mb-6 w-full text-center text-5xl text-primary">本屆主題：互動式網頁設計</p>
+          <img className="hidden h-[160px] w-full sm:block" src={talk} alt="talk" />
+          <img className="h-[80px] object-fill sm:hidden" src={talkMoble} alt="talk" />
+          <p className="absolute top-4 mb-6 w-full text-center text-2xl text-primary sm:top-10 sm:text-5xl">
+            本屆主題：互動式網頁設計
+          </p>
           <p className="text-center text-2xl text-info">以下兩個角色進行攜手合作</p>
         </div>
-        <div className="flex w-[900px] justify-between opacity-0" ref={btnGroupRef}>
-          <div className="group flex flex-col items-center">
-            <img className="w-[60px] opacity-0 group-hover:opacity-100" src={joinHand} alt="joinHand" />
-            <img className="w-[100px] cursor-pointer" src={btn} alt="btn" />
-            <p className="text-3xl text-primary">前端工程師</p>
+        <div className="max-w-[900px] justify-between opacity-0 sm:flex" ref={btnGroupRef}>
+          <div className="group mb-5 flex items-center justify-center sm:mb-0 sm:flex-col">
+            <img className="mr-4 w-[100px] sm:hidden" src={dog} alt="dog" />
+            <div className="flex flex-col items-center">
+              <img className="w-[60px] group-hover:opacity-100 sm:opacity-0" src={joinHand} alt="joinHand" />
+              <img className="w-[100px] cursor-pointer" src={btn} alt="btn" />
+              <p className="text-3xl text-primary">前端工程師</p>
+            </div>
           </div>
-          <div className="group flex flex-col items-center">
-            <img className="w-[60px] opacity-0 group-hover:opacity-100" src={joinHand} alt="joinHand" />
-            <img className="w-[100px] cursor-pointer" src={btn} alt="btn" />
-            <p className="text-3xl text-primary">ＵＩ設計師</p>
+          <div className="group mb-5 flex items-center justify-center sm:mb-0 sm:flex-col">
+            <div className="flex flex-col items-center">
+              <img className="w-[60px] group-hover:opacity-100 sm:opacity-0" src={joinHand} alt="joinHand" />
+              <img className="w-[100px] cursor-pointer" src={btn} alt="btn" />
+              <p className="text-3xl text-primary">ＵＩ設計師</p>
+            </div>
+            <img className="ml-4 w-[100px] sm:hidden" src={cat} alt="cat" />
           </div>
-          <div className="group flex flex-col items-center">
-            <img className="w-[60px] opacity-0 group-hover:opacity-100" src={joinHand} alt="joinHand" />
-            <img className="w-[100px] cursor-pointer" src={btn} alt="btn" />
-            <p className="text-3xl text-primary">團體組(UI+前端)</p>
+          <div className="group mb-5 flex items-center justify-center sm:mb-0 sm:flex-col">
+            <img className="mr-4 w-[100px] sm:hidden" src={pig} alt="pig" />
+            <div className="flex flex-col items-center">
+              <img className="w-[60px] group-hover:opacity-100 sm:opacity-0" src={joinHand} alt="joinHand" />
+              <img className="w-[100px] cursor-pointer" src={btn} alt="btn" />
+              <p className="text-3xl text-primary">團體組(UI+前端)</p>
+            </div>
           </div>
         </div>
       </div>
