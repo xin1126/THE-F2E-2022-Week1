@@ -1,6 +1,7 @@
 import { FatherContext, Context } from '@/pages/home/index'
 
 import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 import road from '@/assets/images/main/road.png'
 import dog from '@/assets/images/character/character_f2e.gif'
@@ -12,22 +13,46 @@ const Footer: React.FC = () => {
 
   const { distance } = useContext<Context>(FatherContext)
 
+  const mobile = () => {
+    gsap.to(footerGroupRef.current, {
+      'max-width': '250px',
+    })
+  }
+
+  const pcBig = () => {
+    ScrollTrigger.matchMedia({
+      '(min-width: 640px)': () => {
+        gsap.to(footerGroupRef.current, {
+          'max-width': '1175px',
+        })
+      },
+    })
+  }
+
+  const pcSmall = () => {
+    ScrollTrigger.matchMedia({
+      '(min-width: 640px)': () => {
+        gsap.to(footerGroupRef.current, {
+          'max-width': '800px',
+        })
+      },
+    })
+  }
+
   useEffect(() => {
     switch (distance) {
       case 0:
         gsap.to(footerGroupRef.current, {
-          width: '1300px',
+          'max-width': '1175px',
         })
         break
       case 1:
-        gsap.to(footerGroupRef.current, {
-          width: '800px',
-        })
+        mobile()
+        pcSmall()
         break
       case 2:
-        gsap.to(footerGroupRef.current, {
-          width: '1300px',
-        })
+        mobile()
+        pcBig()
         break
 
       default:
@@ -36,11 +61,11 @@ const Footer: React.FC = () => {
   }, [distance])
 
   return (
-    <div ref={footerGroupRef} className="fixed bottom-0 z-10 max-w-[1175px]">
-      <div className="absolute bottom-0 flex w-full justify-around px-10">
+    <div ref={footerGroupRef} className="fixed bottom-0 z-10">
+      <div className="absolute bottom-0 mt-[50%] flex w-full justify-around px-10">
         <img className="w-[25%]" src={dog} alt="dog" />
-        <img className="w-[28%]" src={cat} alt="cat" />
-        <img className="mt-20 w-[25%]" src={pig} alt="pig" />
+        <img className={`w-[28%] ${distance && 'mx-8 sm:mx-0'} duration-200`} src={cat} alt="cat" />
+        <img className="relative -bottom-2 w-[25%] lg:-bottom-8" src={pig} alt="pig" />
       </div>
       <img src={road} alt="road" />
     </div>
