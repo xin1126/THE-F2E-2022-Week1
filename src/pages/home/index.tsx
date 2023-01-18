@@ -3,11 +3,12 @@ import device from 'current-device'
 
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
+import HeaderSection from '@/components/Header'
 import FirstSection from './components/FirstSection'
 import TroubledSection from './components/TroubledSection'
 import ThemeSection from './components/ThemeSection'
+import PeriodSection from './components/PeriodSection'
 import FooterSection from '@/components/Footer'
-import HeaderSection from '@/components/Header'
 
 export interface Context {
   distance: number
@@ -45,6 +46,10 @@ const Home: React.FC = () => {
         if (through.includes('theme')) return
         setThrough((data) => [...data, 'theme'])
         break
+      case 3:
+        if (through.includes('period')) return
+        setThrough((data) => [...data, 'period'])
+        break
     }
   }, [distance])
 
@@ -63,6 +68,7 @@ const Home: React.FC = () => {
         <FirstSection resetFirst={resetFirst} />
         {through.includes('troubled') && <TroubledSection />}
         {through.includes('theme') && <ThemeSection />}
+        {through.includes('period') && <PeriodSection />}
         <FooterSection />
       </div>
     </FatherContext.Provider>

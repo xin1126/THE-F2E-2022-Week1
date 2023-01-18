@@ -65,6 +65,14 @@ const Footer: React.FC = () => {
         mobile()
         pcBig()
         break
+      case 3:
+        mobile()
+        pcSmall()
+        break
+      case 4:
+        mobile()
+        pcBig()
+        break
 
       default:
         break
