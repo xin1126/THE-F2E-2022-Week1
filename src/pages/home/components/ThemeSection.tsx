@@ -1,5 +1,6 @@
 import { FatherContext, Context } from '../index'
 import ScrollTarget, { ScrollTargetHandle } from '@/components/ScrollTarget'
+import device from 'current-device'
 
 import talk from '@/assets/images/bg/bg_talking.png'
 import talkMoble from '@/assets/images/bg/bg_talking_c.png'
@@ -11,13 +12,105 @@ import cat from '@/assets/images/character/character_ui.png'
 
 const ThemeSection: React.FC = () => {
   const themeTalkRef = useRef<HTMLDivElement>(null)
+  const dogRef = useRef<HTMLDivElement>(null)
+  const catRef = useRef<HTMLDivElement>(null)
+  const pigRef = useRef<HTMLDivElement>(null)
   const btnGroupRef = useRef<HTMLDivElement>(null)
   const gsap = useRef<ScrollTargetHandle>(null)
 
   const { distance, setDistance } = useContext<Context>(FatherContext)
 
+  const handlePig = () => {
+    const pig = {
+      id: 'pig',
+      dom: device.mobile() ? themeTalkRef.current : null,
+      fc: () => setDistance(distance + 1),
+      last: true,
+    }
+    const useGsap = gsap.current?.handleGsap(pig)
+    useGsap
+      ?.to(pigRef.current, {
+        opacity: 0,
+        x: 200,
+      })
+      .to(pigRef.current, {
+        opacity: 1,
+        x: 0,
+      })
+  }
+
+  const handleCat = () => {
+    const cat = {
+      id: 'cat',
+      dom: device.mobile() ? themeTalkRef.current : null,
+      fc: handlePig,
+    }
+    const useGsap = gsap.current?.handleGsap(cat)
+    useGsap
+      ?.to(catRef.current, {
+        opacity: 0,
+        x: -200,
+      })
+      .to(catRef.current, {
+        opacity: 1,
+        x: 0,
+      })
+  }
+
+  const handleDog = () => {
+    const dog = {
+      id: 'dog',
+      dom: device.mobile() ? themeTalkRef.current : null,
+      fc: handleCat,
+    }
+    const useGsap = gsap.current?.handleGsap(dog)
+    useGsap
+      ?.to(dogRef.current, {
+        x: 200,
+      })
+      .to(dogRef.current, {
+        opacity: 1,
+        x: 0,
+      })
+  }
+
   const handleBtn = () => {
-    const useGsap = gsap.current?.handleGsap('themeBtn', () => setDistance(distance + 1), true)
+    const themeBtn = {
+      id: 'themeBtn',
+      dom: null,
+      fc: () => setDistance(distance + 1),
+      last: true,
+    }
+    const useGsap = gsap.current?.handleGsap(themeBtn)
+
+    if (device.mobile()) {
+      useGsap
+        ?.to(dogRef.current, {
+          x: 200,
+        })
+        .to(dogRef.current, {
+          opacity: 1,
+          x: 0,
+        })
+        .to(catRef.current, {
+          opacity: 0,
+          x: -200,
+        })
+        .to(catRef.current, {
+          opacity: 1,
+          x: 0,
+        })
+        .to(pigRef.current, {
+          opacity: 0,
+          x: 200,
+        })
+        .to(pigRef.current, {
+          opacity: 1,
+          x: 0,
+        })
+      return
+    }
+
     useGsap
       ?.to(btnGroupRef.current, {
         y: 200,
@@ -33,7 +126,13 @@ const ThemeSection: React.FC = () => {
   }
 
   const handleTalk = () => {
-    const useGsap = gsap.current?.handleGsap('themeTalk', handleBtn)
+    const fc = device.mobile() ? handleBtn : handleBtn
+    const themeTalk = {
+      id: 'themeTalk',
+      dom: device.mobile() ? themeTalkRef.current : null,
+      fc,
+    }
+    const useGsap = gsap.current?.handleGsap(themeTalk)
     useGsap?.to(themeTalkRef.current, { opacity: 1 })
   }
 
@@ -44,7 +143,7 @@ const ThemeSection: React.FC = () => {
   return (
     <>
       <ScrollTarget ref={gsap} />
-      <div className="top-10 z-20 mt-[400px] w-full sm:fixed sm:mt-0 sm:w-auto">
+      <div className="top-10 z-20 mt-12 w-full sm:fixed sm:mt-0 sm:w-auto">
         <div className="relative mx-auto mb-12 max-w-[700px] opacity-0" ref={themeTalkRef}>
           <img className="hidden h-[160px] w-full sm:block" src={talk} alt="talk" />
           <img className="h-[80px] object-fill sm:hidden" src={talkMoble} alt="talk" />
@@ -53,8 +152,11 @@ const ThemeSection: React.FC = () => {
           </p>
           <p className="text-center text-2xl text-info">以下兩個角色進行攜手合作</p>
         </div>
-        <div className="max-w-[900px] justify-between opacity-0 sm:flex" ref={btnGroupRef}>
-          <div className="group mb-5 flex items-center justify-center sm:mb-0 sm:flex-col">
+        <div className="max-w-[900px] justify-between sm:flex sm:opacity-0" ref={btnGroupRef}>
+          <div
+            className="group mb-5 flex items-center justify-center opacity-0 sm:mb-0 sm:flex-col sm:opacity-100"
+            ref={dogRef}
+          >
             <img className="mr-4 w-[100px] sm:hidden" src={dog} alt="dog" />
             <div className="flex flex-col items-center">
               <img className="w-[60px] group-hover:opacity-100 sm:opacity-0" src={joinHand} alt="joinHand" />
@@ -62,7 +164,10 @@ const ThemeSection: React.FC = () => {
               <p className="text-3xl text-primary">前端工程師</p>
             </div>
           </div>
-          <div className="group mb-5 flex items-center justify-center sm:mb-0 sm:flex-col">
+          <div
+            className="group mb-5 flex items-center justify-center opacity-0 sm:mb-0 sm:flex-col sm:opacity-100"
+            ref={catRef}
+          >
             <div className="flex flex-col items-center">
               <img className="w-[60px] group-hover:opacity-100 sm:opacity-0" src={joinHand} alt="joinHand" />
               <img className="w-[100px] cursor-pointer" src={btn} alt="btn" />
@@ -70,7 +175,10 @@ const ThemeSection: React.FC = () => {
             </div>
             <img className="ml-4 w-[100px] sm:hidden" src={cat} alt="cat" />
           </div>
-          <div className="group mb-5 flex items-center justify-center sm:mb-0 sm:flex-col">
+          <div
+            className="group mb-5 flex items-center justify-center opacity-0 sm:mb-0 sm:flex-col sm:opacity-100"
+            ref={pigRef}
+          >
             <img className="mr-4 w-[100px] sm:hidden" src={pig} alt="pig" />
             <div className="flex flex-col items-center">
               <img className="w-[60px] group-hover:opacity-100 sm:opacity-0" src={joinHand} alt="joinHand" />

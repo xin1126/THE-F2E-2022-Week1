@@ -10,7 +10,11 @@ import user from '@/assets/images/ic/ic_users.svg'
 import leftCloud from '@/assets/images/bg/bg_decorate_01.png'
 import rightCloud from '@/assets/images/bg/bg_decorate_05.png'
 
-const FirstSection: React.FC = () => {
+interface Props {
+  resetFirst: number
+}
+
+const FirstSection: React.FC<Props> = ({ resetFirst }) => {
   const cloudGroupRef = useRef<HTMLDivElement>(null)
   const joinInfoGroupRef = useRef<HTMLUListElement>(null)
   const headerGroupRef = useRef<HTMLDivElement>(null)
@@ -19,17 +23,33 @@ const FirstSection: React.FC = () => {
   const { distance, setDistance } = useContext<Context>(FatherContext)
 
   const handleHeader = () => {
-    const useGsap = gsap.current?.handleGsap('header', () => setDistance(distance + 1), true)
+    const header = {
+      id: 'header',
+      dom: null,
+      fc: () => setDistance(distance + 1),
+      last: true,
+    }
+    const useGsap = gsap.current?.handleGsap(header)
     useGsap?.to(headerGroupRef.current, { opacity: 0 })
   }
 
   const handleJoinInfo = () => {
-    const useGsap = gsap.current?.handleGsap('joinInfo', handleHeader)
+    const joinInfo = {
+      id: 'joinInfo',
+      dom: null,
+      fc: handleHeader,
+    }
+    const useGsap = gsap.current?.handleGsap(joinInfo)
     useGsap?.to(joinInfoGroupRef.current, { opacity: 0 })
   }
 
   const handleCloud = () => {
-    const useGsap = gsap.current?.handleGsap('cloud', handleJoinInfo)
+    const cloud = {
+      id: 'cloud',
+      dom: null,
+      fc: handleJoinInfo,
+    }
+    const useGsap = gsap.current?.handleGsap(cloud)
     useGsap
       ?.to(cloudGroupRef.current, {
         padding: '0 10%',
@@ -47,7 +67,12 @@ const FirstSection: React.FC = () => {
   }
 
   const handleMoble = () => {
-    const useGsap = gsap.current?.handleGsap('FirstMobile', () => setDistance(distance + 1), true)
+    const firstMobile = {
+      id: 'firstMobile',
+      dom: null,
+      fc: () => setDistance(distance + 1),
+    }
+    const useGsap = gsap.current?.handleGsap(firstMobile)
     useGsap?.to([headerGroupRef.current, cloudGroupRef.current], { opacity: 0 })
   }
 
@@ -63,7 +88,7 @@ const FirstSection: React.FC = () => {
         },
       })
     }, 500)
-  }, [])
+  }, [resetFirst])
 
   return (
     <>
@@ -75,7 +100,7 @@ const FirstSection: React.FC = () => {
       >
         <img className="mb-3 mt-12 w-[250px] sm:hidden" src={logo} alt="logo" />
         <img className="mt-10 hidden max-w-[680px] sm:block" src={logoText} alt="logoText" />
-        <div className="-top-4 mb-5 w-fit rounded-3xl bg-secondary px-10 py-2 text-3xl text-white sm:relative sm:mb-0">
+        <div className="-top-4 mb-5 w-fit rounded-3xl bg-secondary px-4 py-2 text-xl text-white sm:relative sm:mb-0 sm:px-10 sm:text-3xl">
           互動式網頁設計
         </div>
         <ul ref={joinInfoGroupRef} className="w-full justify-around text-2xl sm:flex">

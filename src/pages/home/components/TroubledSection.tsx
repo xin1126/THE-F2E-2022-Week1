@@ -1,5 +1,6 @@
 import { FatherContext, Context } from '../index'
 import ScrollTarget, { ScrollTargetHandle } from '@/components/ScrollTarget'
+import device from 'current-device'
 
 import talk from '@/assets/images/bg/bg_talking.png'
 import talkMoble from '@/assets/images/bg/bg_talking_c.png'
@@ -17,7 +18,14 @@ const TroubledSection: React.FC = () => {
   const { distance, setDistance } = useContext<Context>(FatherContext)
 
   const handleExit = () => {
-    const useGsap = gsap.current?.handleGsap('troubledExit', () => setDistance(distance + 1), true)
+    const troubledExit = {
+      id: 'troubledExit',
+      dom: null,
+      fc: () => setDistance(distance + 1),
+      last: true,
+    }
+    const useGsap = gsap.current?.handleGsap(troubledExit)
+    if (device.mobile()) return
     useGsap
       ?.to([question1Ref.current, question2Ref.current, question3Ref.current, troubledTalkRef.current], {
         opacity: 0.5,
@@ -28,7 +36,12 @@ const TroubledSection: React.FC = () => {
   }
 
   const handleQuestion3 = () => {
-    const useGsap = gsap.current?.handleGsap('question3', handleExit)
+    const question3 = {
+      id: 'question3',
+      dom: device.mobile() ? question3Ref.current : null,
+      fc: handleExit,
+    }
+    const useGsap = gsap.current?.handleGsap(question3)
     useGsap
       ?.to(question3Ref.current, {
         x: 200,
@@ -40,12 +53,22 @@ const TroubledSection: React.FC = () => {
   }
 
   const handleQuestion2 = () => {
-    const useGsap = gsap.current?.handleGsap('question2', handleQuestion3)
+    const question2 = {
+      id: 'question2',
+      dom: device.mobile() ? question2Ref.current : null,
+      fc: handleQuestion3,
+    }
+    const useGsap = gsap.current?.handleGsap(question2)
     useGsap?.to(question2Ref.current, { opacity: 1 })
   }
 
   const handleQuestion1 = () => {
-    const useGsap = gsap.current?.handleGsap('question1', handleQuestion2)
+    const question1 = {
+      id: 'question1',
+      dom: device.mobile() ? question1Ref.current : null,
+      fc: handleQuestion2,
+    }
+    const useGsap = gsap.current?.handleGsap(question1)
     useGsap
       ?.to(question1Ref.current, {
         x: -200,
@@ -57,7 +80,12 @@ const TroubledSection: React.FC = () => {
   }
 
   const handleTalk = () => {
-    const useGsap = gsap.current?.handleGsap('troubledTalk', handleQuestion1)
+    const troubledTalk = {
+      id: 'troubledTalk',
+      dom: device.mobile() ? troubledTalkRef.current : null,
+      fc: handleQuestion1,
+    }
+    const useGsap = gsap.current?.handleGsap(troubledTalk)
     useGsap?.to(troubledTalkRef.current, { opacity: 1 })
   }
 

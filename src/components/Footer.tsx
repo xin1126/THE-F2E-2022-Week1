@@ -23,6 +23,11 @@ const Footer: React.FC = () => {
     ScrollTrigger.matchMedia({
       '(min-width: 640px)': () => {
         gsap.to(footerGroupRef.current, {
+          'max-width': '600px',
+        })
+      },
+      '(min-width: 1700px)': () => {
+        gsap.to(footerGroupRef.current, {
           'max-width': '1175px',
         })
       },
@@ -32,6 +37,11 @@ const Footer: React.FC = () => {
   const pcSmall = () => {
     ScrollTrigger.matchMedia({
       '(min-width: 640px)': () => {
+        gsap.to(footerGroupRef.current, {
+          'max-width': '350px',
+        })
+      },
+      '(min-width: 1700px)': () => {
         gsap.to(footerGroupRef.current, {
           'max-width': '800px',
         })
@@ -45,6 +55,7 @@ const Footer: React.FC = () => {
         gsap.to(footerGroupRef.current, {
           'max-width': '1175px',
         })
+        pcBig()
         break
       case 1:
         mobile()
@@ -65,7 +76,7 @@ const Footer: React.FC = () => {
       <div className="absolute bottom-0 mt-[50%] flex w-full justify-around px-10">
         <img className="w-[25%]" src={dog} alt="dog" />
         <img className={`w-[28%] ${distance && 'mx-8 sm:mx-0'} duration-200`} src={cat} alt="cat" />
-        <img className="relative -bottom-2 w-[25%] lg:-bottom-8" src={pig} alt="pig" />
+        <img className="relative -bottom-2 w-[25%] sm:-bottom-1 min-[1700px]:-bottom-8" src={pig} alt="pig" />
       </div>
       <img src={road} alt="road" />
     </div>

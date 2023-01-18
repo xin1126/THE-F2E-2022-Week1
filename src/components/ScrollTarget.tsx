@@ -5,8 +5,15 @@ import { FatherContext, Context } from '@/pages/home/index'
 
 gsap.registerPlugin(ScrollTrigger)
 
+interface HandleGsap {
+  id: string
+  dom: Element | null
+  fc?: () => void | null
+  last?: boolean
+}
+
 export interface ScrollTargetHandle {
-  handleGsap: (id: string, fc?: () => void, last?: boolean) => gsap.core.Timeline | void
+  handleGsap: (val: HandleGsap) => gsap.core.Timeline | void
 }
 
 const ScrollTarget: React.ForwardRefRenderFunction<ScrollTargetHandle> = (props, forwardedRef) => {
@@ -16,13 +23,15 @@ const ScrollTarget: React.ForwardRefRenderFunction<ScrollTargetHandle> = (props,
   const { setDistance } = useContext<Context>(FatherContext)
 
   useImperativeHandle(forwardedRef, () => ({
-    handleGsap(id: string, fc?: () => void, last?: boolean) {
+    handleGsap(val: HandleGsap) {
+      const { id, dom, fc, last } = val
       if (ScrollTrigger.getById(id)) return
 
       const useGsap = gsap.timeline({
         scrollTrigger: {
-          trigger: trigger.current,
+          trigger: dom || trigger.current,
           start: top,
+          end: dom ? 'top 30%' : 0,
           scrub: true,
         },
       })
@@ -52,9 +61,6 @@ const ScrollTarget: React.ForwardRefRenderFunction<ScrollTargetHandle> = (props,
 
   useEffect(() => {
     handleTop()
-    window.onresize = () => {
-      handleTop()
-    }
   }, [])
 
   return <div ref={trigger} className="fixed bottom-[55%] sm:bottom-[30%]"></div>

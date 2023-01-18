@@ -25,7 +25,7 @@ const Header: React.FC = () => {
     })
   })
   return (
-    <div className="fixed top-0 z-50 flex w-full justify-between bg-[#ffc37d] p-2 sm:z-10 sm:items-start">
+    <div className="fixed top-0 z-50 flex w-full justify-between bg-background p-2 sm:z-10 sm:items-start">
       <img className="hidden w-[100px] sm:block xl:w-[200px]" src={logo} alt="user" ref={logoRef} />
       <img className="relative -left-2 w-[40px] cursor-pointer sm:hidden" src={btn} alt="btn" />
       <img className="mt-2 w-[135px] sm:hidden" src={logoText} alt="logoText" />
