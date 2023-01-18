@@ -20,57 +20,21 @@ const ThemeSection: React.FC = () => {
 
   const { distance, setDistance } = useContext<Context>(FatherContext)
 
-  const handlePig = () => {
-    const pig = {
-      id: 'pig',
-      dom: device.mobile() ? themeTalkRef.current : null,
+  const handleExit = () => {
+    const themeExit = {
+      id: 'themeExit',
+      dom: null,
       fc: () => setDistance(distance + 1),
       last: true,
     }
-    const useGsap = gsap.current?.handleGsap(pig)
+    const useGsap = gsap.current?.handleGsap(themeExit)
+    if (device.mobile()) return
     useGsap
-      ?.to(pigRef.current, {
+      ?.to([btnGroupRef.current, themeTalkRef.current], {
+        opacity: 0.5,
+      })
+      .to([btnGroupRef.current, themeTalkRef.current], {
         opacity: 0,
-        x: 200,
-      })
-      .to(pigRef.current, {
-        opacity: 1,
-        x: 0,
-      })
-  }
-
-  const handleCat = () => {
-    const cat = {
-      id: 'cat',
-      dom: device.mobile() ? themeTalkRef.current : null,
-      fc: handlePig,
-    }
-    const useGsap = gsap.current?.handleGsap(cat)
-    useGsap
-      ?.to(catRef.current, {
-        opacity: 0,
-        x: -200,
-      })
-      .to(catRef.current, {
-        opacity: 1,
-        x: 0,
-      })
-  }
-
-  const handleDog = () => {
-    const dog = {
-      id: 'dog',
-      dom: device.mobile() ? themeTalkRef.current : null,
-      fc: handleCat,
-    }
-    const useGsap = gsap.current?.handleGsap(dog)
-    useGsap
-      ?.to(dogRef.current, {
-        x: 200,
-      })
-      .to(dogRef.current, {
-        opacity: 1,
-        x: 0,
       })
   }
 
@@ -78,8 +42,7 @@ const ThemeSection: React.FC = () => {
     const themeBtn = {
       id: 'themeBtn',
       dom: null,
-      fc: () => setDistance(distance + 1),
-      last: true,
+      fc: handleExit,
     }
     const useGsap = gsap.current?.handleGsap(themeBtn)
 
