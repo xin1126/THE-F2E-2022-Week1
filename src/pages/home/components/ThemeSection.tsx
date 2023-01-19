@@ -1,4 +1,4 @@
-import { FatherContext, Context } from '../index'
+import { useDistanceContext } from '@/context/distanceContext'
 import ScrollTarget, { ScrollTargetHandle } from '@/components/ScrollTarget'
 import device from 'current-device'
 
@@ -18,7 +18,7 @@ const ThemeSection: React.FC = () => {
   const btnGroupRef = useRef<HTMLDivElement>(null)
   const gsap = useRef<ScrollTargetHandle>(null)
 
-  const { distance, setDistance } = useContext<Context>(FatherContext)
+  const { distance, setDistance } = useDistanceContext()
 
   const handleExit = () => {
     const themeExit = {

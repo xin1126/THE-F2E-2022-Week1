@@ -1,7 +1,7 @@
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
-import { FatherContext, Context } from '@/pages/home/index'
+import { useDistanceContext } from '@/context/distanceContext'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -20,7 +20,7 @@ const ScrollTarget: React.ForwardRefRenderFunction<ScrollTargetHandle> = (props,
   const trigger = useRef<HTMLDivElement | null>(null)
   const [top, setTop] = useState('')
 
-  const { setDistance } = useContext<Context>(FatherContext)
+  const { setDistance } = useDistanceContext()
 
   useImperativeHandle(forwardedRef, () => ({
     handleGsap(val: HandleGsap) {

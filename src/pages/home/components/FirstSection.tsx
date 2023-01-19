@@ -1,4 +1,4 @@
-import { FatherContext, Context } from '../index'
+import { useDistanceContext } from '@/context/distanceContext'
 import ScrollTarget, { ScrollTargetHandle } from '@/components/ScrollTarget'
 
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
@@ -20,7 +20,7 @@ const FirstSection: React.FC<Props> = ({ resetFirst }) => {
   const headerGroupRef = useRef<HTMLDivElement>(null)
   const gsap = useRef<ScrollTargetHandle>(null)
 
-  const { distance, setDistance } = useContext<Context>(FatherContext)
+  const { distance, setDistance } = useDistanceContext()
 
   const handleHeader = () => {
     const header = {

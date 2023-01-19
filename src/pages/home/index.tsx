@@ -1,7 +1,7 @@
-import { createContext } from 'react'
 import device from 'current-device'
-
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+import { DistanceContext } from '@/context/distanceContext'
 
 import HeaderSection from '@/components/Header'
 import FirstSection from './components/FirstSection'
@@ -9,16 +9,6 @@ import TroubledSection from './components/TroubledSection'
 import ThemeSection from './components/ThemeSection'
 import PeriodSection from './components/PeriodSection'
 import FooterSection from '@/components/Footer'
-
-export interface Context {
-  distance: number
-  setDistance: (val: number | React.SetStateAction<number>) => void
-}
-
-export const FatherContext = createContext<Context>({
-  distance: 0,
-  setDistance: () => {},
-})
 
 const Home: React.FC = () => {
   const [distance, setDistance] = useState(0)
@@ -72,14 +62,14 @@ const Home: React.FC = () => {
   }, [])
 
   return (
-    <FatherContext.Provider value={{ distance, setDistance }}>
+    <DistanceContext.Provider value={{ distance, setDistance }}>
       <div className="flex h-[1500vh] flex-col items-center overflow-hidden bg-background">
         <HeaderSection />
         <FirstSection resetFirst={resetFirst} />
-        {main.map((item) => through.includes(item.tag) && <item.section />)}
+        {main.map((item) => through.includes(item.tag) && <item.section key={item.tag} />)}
         <FooterSection />
       </div>
-    </FatherContext.Provider>
+    </DistanceContext.Provider>
   )
 }
 

@@ -1,4 +1,4 @@
-import { FatherContext, Context } from '@/pages/home/index'
+import { useDistanceContext } from '@/context/distanceContext'
 
 import { gsap } from 'gsap'
 
@@ -10,7 +10,7 @@ import btn from '@/assets/images/btn/btn_burger_open_h.png'
 const Header: React.FC = () => {
   const logoRef = useRef<HTMLImageElement>(null)
 
-  const { distance } = useContext<Context>(FatherContext)
+  const { distance } = useDistanceContext()
 
   useEffect(() => {
     if (!distance) {
