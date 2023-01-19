@@ -35,22 +35,32 @@ const Home: React.FC = () => {
     }, 250)
   }, [])
 
+  const main = [
+    {
+      distance: 1,
+      tag: 'troubled',
+      section: TroubledSection,
+    },
+    {
+      distance: 2,
+      tag: 'theme',
+      section: ThemeSection,
+    },
+    {
+      distance: 3,
+      tag: 'period',
+      section: PeriodSection,
+    },
+  ]
+
   useEffect(() => {
     if (!distance) return
-    switch (distance) {
-      case 1:
-        if (through.includes('troubled')) return
-        setThrough((data) => [...data, 'troubled'])
-        break
-      case 2:
-        if (through.includes('theme')) return
-        setThrough((data) => [...data, 'theme'])
-        break
-      case 3:
-        if (through.includes('period')) return
-        setThrough((data) => [...data, 'period'])
-        break
-    }
+
+    main.forEach((item) => {
+      if (item.distance === distance && !through.includes(item.tag)) {
+        setThrough((data) => [...data, item.tag])
+      }
+    })
   }, [distance])
 
   useEffect(() => {
@@ -66,9 +76,7 @@ const Home: React.FC = () => {
       <div className="flex h-[1500vh] flex-col items-center overflow-hidden bg-background">
         <HeaderSection />
         <FirstSection resetFirst={resetFirst} />
-        {through.includes('troubled') && <TroubledSection />}
-        {through.includes('theme') && <ThemeSection />}
-        {through.includes('period') && <PeriodSection />}
+        {main.map((item) => through.includes(item.tag) && <item.section />)}
         <FooterSection />
       </div>
     </FatherContext.Provider>
