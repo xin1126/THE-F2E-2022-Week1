@@ -7,6 +7,8 @@ import road from '@/assets/images/main/road.png'
 import dog from '@/assets/images/character/character_f2e.gif'
 import pig from '@/assets/images/character/character_team.gif'
 import cat from '@/assets/images/character/character_ui.gif'
+import joinHand from '@/assets/images/btn/btn_joinHand.gif'
+import btnJoin from '@/assets/images/btn/btn_join.png'
 
 const Footer: React.FC = () => {
   const footerGroupRef = useRef<HTMLDivElement>(null)
@@ -80,14 +82,21 @@ const Footer: React.FC = () => {
   }, [distance])
 
   return (
-    <div ref={footerGroupRef} className="fixed bottom-0 z-10">
-      <div className="absolute bottom-0 mt-[50%] flex w-full justify-around px-10">
-        <img className="w-[25%]" src={dog} alt="dog" />
-        <img className={`w-[28%] ${distance && 'mx-8 sm:mx-0'} duration-200`} src={cat} alt="cat" />
-        <img className="relative -bottom-2 w-[25%] sm:-bottom-1 min-[1800px]:-bottom-8" src={pig} alt="pig" />
+    <>
+      <div ref={footerGroupRef} className="fixed bottom-0 z-10">
+        <div className="absolute bottom-0 mt-[50%] flex w-full justify-around px-10">
+          <img className="w-[25%]" src={dog} alt="dog" />
+          <img className={`w-[28%] ${distance && 'mx-8 sm:mx-0'} duration-200`} src={cat} alt="cat" />
+          <img className="relative -bottom-2 w-[25%] sm:-bottom-1 min-[1800px]:-bottom-8" src={pig} alt="pig" />
+        </div>
+        <img src={road} alt="road" />
       </div>
-      <img src={road} alt="road" />
-    </div>
+      <div className="fixed right-4 bottom-4 w-[80px] cursor-pointer">
+        <p className="mb-2 text-center text-2xl text-primary">JOIN</p>
+        <img src={joinHand} alt="joinHand" />
+        <img src={btnJoin} alt="btnJoin" />
+      </div>
+    </>
   )
 }
 export default Footer

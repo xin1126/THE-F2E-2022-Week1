@@ -9,6 +9,7 @@ import TroubledSection from './components/TroubledSection'
 import ThemeSection from './components/ThemeSection'
 import PeriodSection from './components/PeriodSection'
 import FooterSection from '@/components/Footer'
+import MapSection from '@/components/Map'
 
 const Home: React.FC = () => {
   const [distance, setDistance] = useState(0)
@@ -68,6 +69,7 @@ const Home: React.FC = () => {
         <FirstSection resetFirst={resetFirst} />
         {main.map((item) => through.includes(item.tag) && <item.section key={item.tag} />)}
         <FooterSection />
+        <MapSection />
       </div>
     </DistanceContext.Provider>
   )
