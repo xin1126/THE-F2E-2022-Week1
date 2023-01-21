@@ -11,8 +11,6 @@ import titansoft from '@/assets/images/main/logo_titansoft.png'
 
 const SponsorSection: React.FC = () => {
   const sponsorTalkRef = useRef<HTMLDivElement>(null)
-  const sponsorContentRef = useRef<HTMLUListElement>(null)
-  const awardLightRef = useRef<HTMLImageElement>(null)
   const blockstudioRef = useRef<HTMLLIElement>(null)
   const titansoftRef = useRef<HTMLLIElement>(null)
   const kdanmobileRef = useRef<HTMLLIElement>(null)
@@ -22,18 +20,16 @@ const SponsorSection: React.FC = () => {
   const { distance, setDistance } = useDistanceContext()
 
   const handleExit = () => {
-    setTimeout(() => {
-      const sponsorExit = {
-        id: 'sponsorExit',
-        dom: null,
-        fc: () => setDistance(distance + 1),
-        last: true,
-      }
-      const useGsap = gsap.current?.handleGsap(sponsorExit)
-      useGsap
-        ?.to(sponsorTalkRef.current, { opacity: 0 }, '<')
-        .to([blockstudioRef.current, titansoftRef.current, kdanmobileRef.current], { opacity: 0, y: 80 })
-    }, 500)
+    const sponsorExit = {
+      id: 'sponsorExit',
+      dom: null,
+      fc: () => setDistance(distance + 1),
+      last: true,
+    }
+    const useGsap = gsap.current?.handleGsap(sponsorExit)
+    useGsap
+      ?.to(sponsorTalkRef.current, { opacity: 0 }, '<')
+      .to([blockstudioRef.current, titansoftRef.current, kdanmobileRef.current], { opacity: 0, y: 80 })
   }
 
   const hondleSponsor = () => {
