@@ -9,6 +9,8 @@ import joinHand from '@/assets/images/btn/btn_joinHand.gif'
 import btnJoin from '@/assets/images/btn/btn_join.png'
 
 const DateSection: React.FC = () => {
+  const DateSectionRef = useRef<HTMLDivElement>(null)
+
   const hiddenLineRef = useRef<HTMLDivElement>(null)
   const lineRef = useRef<HTMLImageElement>(null)
 
@@ -116,7 +118,10 @@ const DateSection: React.FC = () => {
     }
     const useGsap = gsap.current?.handleGsap(line)
     useGsap
-      ?.to(hiddenLineRef.current, {
+      ?.to(DateSectionRef.current, {
+        display: 'block',
+      })
+      .to(hiddenLineRef.current, {
         x: 500,
       })
       .to(lineRef.current, {
@@ -143,7 +148,7 @@ const DateSection: React.FC = () => {
   return (
     <>
       <ScrollTarget ref={gsap} />
-      <div className="fixed top-[45%] z-10 max-w-[1440px]">
+      <div className="fixed top-[45%] z-10 hidden max-w-[1440px]" ref={DateSectionRef}>
         <div ref={hiddenLineRef} className="absolute top-0 z-10 h-[300px] w-full bg-background"></div>
         <img ref={lineRef} className="opacity-0" src={dateLine} alt="line" />
         <ul className="relative top-[-480px] flex w-full justify-around pb-[350px]">
@@ -172,10 +177,13 @@ const DateSection: React.FC = () => {
                 </p>
               </div>
             </div>
-            <img className="h-[140px] opacity-0" src={weekLine} alt="weekLine" ref={startLineRef} />
+            <div className="relative  opacity-0" ref={startLineRef}>
+              <div className="absolute right-1/2 z-10 h-[60px] w-[10px] translate-x-[50%] bg-background"></div>
+              <img className="h-[140px]" src={weekLine} alt="weekLine" />
+            </div>
           </li>
           <li className="relative top-[10px]">
-            <div className="relative z-10 bg-background" ref={uploaSectionRef}>
+            <div className="relative top-10 z-10 bg-background" ref={uploaSectionRef}>
               <div className="flex flex-col items-center opacity-0" ref={uploaContentRef}>
                 <img className="w-[140px]" src={upload} alt="upload" />
                 <p className="mb-2 text-5xl text-secondary">UPLOAD</p>
@@ -184,7 +192,10 @@ const DateSection: React.FC = () => {
                 <p className="mb-2 text-lg text-secondary">額外競賽： 主題豐厚獎金等著你</p>
               </div>
             </div>
-            <img className="h-[140px] opacity-0" src={weekLine} alt="weekLine" ref={uploadLineRef} />
+            <div className="relative  opacity-0" ref={uploadLineRef}>
+              <div className="absolute right-1/2 z-10 h-[40px] w-[10px] translate-x-[50%] bg-background"></div>
+              <img className="h-[140px]" src={weekLine} alt="weekLine" />
+            </div>
           </li>
         </ul>
       </div>
