@@ -109,6 +109,10 @@ const Footer: React.FC = () => {
           },
         })
         break
+      case 8:
+        mobile()
+        pcBig()
+        break
     }
   }, [distance])
 

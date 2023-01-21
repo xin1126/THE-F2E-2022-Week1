@@ -11,6 +11,7 @@ import PeriodSection from './components/PeriodSection'
 import DateSection from './components/DateSection'
 import PracticeSection from './components/PracticeSection'
 import BonusSection from './components/BonusSection'
+import SponsorSection from './components/SponsorSection'
 import FooterSection from '@/components/Footer'
 import MapSection from '@/components/Map'
 
@@ -56,14 +57,14 @@ const Home: React.FC = () => {
       section: PracticeSection,
     },
     {
-      distance: 5,
-      tag: 'practice',
-      section: PracticeSection,
-    },
-    {
       distance: 6,
       tag: 'bonus',
       section: BonusSection,
+    },
+    {
+      distance: 7,
+      tag: 'sponsor',
+      section: SponsorSection,
     },
   ]
 
@@ -87,7 +88,7 @@ const Home: React.FC = () => {
 
   return (
     <DistanceContext.Provider value={{ distance, setDistance }}>
-      <div className="flex h-[2500vh] flex-col items-center overflow-hidden bg-background">
+      <div className="flex h-[3500vh] flex-col items-center overflow-hidden bg-background">
         <HeaderSection />
         <FirstSection resetFirst={resetFirst} />
         {main.map((item) => through.includes(item.tag) && <item.section key={item.tag} />)}
