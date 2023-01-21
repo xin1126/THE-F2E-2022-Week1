@@ -9,6 +9,7 @@ import TroubledSection from './components/TroubledSection'
 import ThemeSection from './components/ThemeSection'
 import PeriodSection from './components/PeriodSection'
 import DateSection from './components/DateSection'
+import PracticeSection from './components/PracticeSection'
 import FooterSection from '@/components/Footer'
 import MapSection from '@/components/Map'
 
@@ -47,6 +48,11 @@ const Home: React.FC = () => {
       distance: 4,
       tag: 'date',
       section: DateSection,
+    },
+    {
+      distance: 5,
+      tag: 'practice',
+      section: PracticeSection,
     },
   ]
 
