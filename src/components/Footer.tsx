@@ -12,6 +12,7 @@ import btnJoin from '@/assets/images/btn/btn_join.png'
 
 const Footer: React.FC = () => {
   const footerGroupRef = useRef<HTMLDivElement>(null)
+  const catRef = useRef<HTMLImageElement>(null)
 
   const { distance } = useDistanceContext()
 
@@ -93,9 +94,20 @@ const Footer: React.FC = () => {
       case 6:
         mobile()
         pcSmall()
+        ScrollTrigger.matchMedia({
+          '(min-width: 640px)': () => {
+            gsap.to(catRef.current, { padding: '0' })
+          },
+        })
         break
-
-      default:
+      case 7:
+        mobile()
+        pcSmall()
+        ScrollTrigger.matchMedia({
+          '(min-width: 640px)': () => {
+            gsap.to(catRef.current, { padding: '0 20px' })
+          },
+        })
         break
     }
   }, [distance])
@@ -105,7 +117,12 @@ const Footer: React.FC = () => {
       <div ref={footerGroupRef} className="fixed bottom-0 z-10">
         <div className="absolute bottom-0 mt-[50%] flex w-full justify-around px-10">
           <img className="w-[25%]" src={dog} alt="dog" />
-          <img className={`w-[28%] ${distance && 'mx-8 sm:mx-0'} duration-200`} src={cat} alt="cat" />
+          <img
+            className={`w-[28%] ${distance && 'mx-8 sm:mx-0'} relative duration-200`}
+            src={cat}
+            alt="cat"
+            ref={catRef}
+          />
           <img className="relative -bottom-2 w-[25%] sm:-bottom-1 min-[1800px]:-bottom-8" src={pig} alt="pig" />
         </div>
         <img src={road} alt="road" />
