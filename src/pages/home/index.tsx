@@ -8,6 +8,7 @@ import FirstSection from './components/FirstSection'
 import TroubledSection from './components/TroubledSection'
 import ThemeSection from './components/ThemeSection'
 import PeriodSection from './components/PeriodSection'
+import DateSection from './components/DateSection'
 import FooterSection from '@/components/Footer'
 import MapSection from '@/components/Map'
 
@@ -42,6 +43,11 @@ const Home: React.FC = () => {
       tag: 'period',
       section: PeriodSection,
     },
+    {
+      distance: 4,
+      tag: 'date',
+      section: DateSection,
+    },
   ]
 
   useEffect(() => {
@@ -64,7 +70,7 @@ const Home: React.FC = () => {
 
   return (
     <DistanceContext.Provider value={{ distance, setDistance }}>
-      <div className="flex h-[1500vh] flex-col items-center overflow-hidden bg-background">
+      <div className="flex h-[2500vh] flex-col items-center overflow-hidden bg-background">
         <HeaderSection />
         <FirstSection resetFirst={resetFirst} />
         {main.map((item) => through.includes(item.tag) && <item.section key={item.tag} />)}

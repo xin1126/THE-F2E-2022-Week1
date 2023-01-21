@@ -30,7 +30,7 @@ const Footer: React.FC = () => {
       },
       '(min-width: 1800px)': () => {
         gsap.to(footerGroupRef.current, {
-          'max-width': '1175px',
+          'max-width': '1050px',
         })
       },
     })
@@ -74,6 +74,25 @@ const Footer: React.FC = () => {
       case 4:
         mobile()
         pcBig()
+        break
+      case 5:
+        mobile()
+        ScrollTrigger.matchMedia({
+          '(min-width: 640px)': () => {
+            gsap.to(footerGroupRef.current, {
+              'max-width': '800px',
+            })
+          },
+          '(min-width: 1800px)': () => {
+            gsap.to(footerGroupRef.current, {
+              'max-width': '1200px',
+            })
+          },
+        })
+        break
+      case 6:
+        mobile()
+        pcSmall()
         break
 
       default:
