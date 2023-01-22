@@ -46,6 +46,7 @@ const Footer: React.FC = () => {
   const treeRightRef = useRef<HTMLImageElement>(null)
 
   const animalRef = useRef<any>(null)
+  const parallaxRef = useRef<any>(null)
 
   const tempGsap = useRef<ScrollTargetHandle>(null)
 
@@ -213,6 +214,7 @@ const Footer: React.FC = () => {
   }
 
   useEffect(() => {
+    parallaxRef.current?.enable()
     switch (distance) {
       case 0:
         gsap.to(footerGroupRef.current, {
@@ -272,6 +274,7 @@ const Footer: React.FC = () => {
         handleTreeFirst()
         break
       case 8:
+        parallaxRef.current?.disable()
         mobile()
         pcBig()
         ScrollTrigger.matchMedia({
@@ -292,7 +295,9 @@ const Footer: React.FC = () => {
   }, [distance])
 
   useEffect(() => {
-    new Parallax(animalRef.current, { pointerEvents: false })
+    if (!parallaxRef.current) {
+      parallaxRef.current = new Parallax(animalRef.current, { pointerEvents: false })
+    }
   }, [])
 
   return (

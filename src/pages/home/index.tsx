@@ -94,7 +94,7 @@ const Home: React.FC = () => {
 
   return (
     <DistanceContext.Provider value={{ distance, setDistance }}>
-      <div className="flex h-[2700vh] flex-col items-center overflow-hidden bg-background">
+      <div className="flex h-[2900vh] flex-col items-center overflow-hidden bg-background">
         <HeaderSection />
         <FirstSection resetFirst={resetFirst} />
         {main.map((item) => through.includes(item.tag) && <item.section key={item.tag} />)}
