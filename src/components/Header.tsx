@@ -13,7 +13,7 @@ const Header: React.FC = () => {
   const { distance } = useDistanceContext()
 
   useEffect(() => {
-    if (!distance || distance === 8) {
+    if (!distance || distance === 9) {
       gsap.to(logoRef.current, {
         opacity: 0,
       })
