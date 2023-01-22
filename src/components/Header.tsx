@@ -13,7 +13,7 @@ const Header: React.FC = () => {
   const { distance } = useDistanceContext()
 
   useEffect(() => {
-    if (!distance) {
+    if (!distance || distance === 8) {
       gsap.to(logoRef.current, {
         opacity: 0,
       })
@@ -23,7 +23,7 @@ const Header: React.FC = () => {
     gsap.to(logoRef.current, {
       opacity: 1,
     })
-  })
+  }, [distance])
   return (
     <div className="fixed top-0 z-50 flex w-full justify-between bg-background p-2 sm:z-10 sm:items-start">
       <img className="hidden w-[100px] sm:block xl:w-[200px]" src={logo} alt="user" ref={logoRef} />

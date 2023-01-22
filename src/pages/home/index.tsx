@@ -12,6 +12,7 @@ import DateSection from './components/DateSection'
 import PracticeSection from './components/PracticeSection'
 import BonusSection from './components/BonusSection'
 import SponsorSection from './components/SponsorSection'
+import FinishSection from './components/FinishSection'
 import FooterSection from '@/components/Footer'
 import MapSection from '@/components/Map'
 
@@ -65,6 +66,11 @@ const Home: React.FC = () => {
       distance: 7,
       tag: 'sponsor',
       section: SponsorSection,
+    },
+    {
+      distance: 9,
+      tag: 'finish',
+      section: FinishSection,
     },
   ]
 

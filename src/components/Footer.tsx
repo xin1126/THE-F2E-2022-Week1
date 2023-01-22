@@ -18,13 +18,18 @@ import finish from '@/assets/images/main/finish_1.png'
 
 const Footer: React.FC = () => {
   const footerGroupRef = useRef<HTMLDivElement>(null)
+  const cloudGroupRef = useRef<HTMLDivElement>(null)
+
   const catRef = useRef<HTMLImageElement>(null)
   const dogRef = useRef<HTMLImageElement>(null)
   const pigRef = useRef<HTMLImageElement>(null)
+
   const finishRef = useRef<HTMLImageElement>(null)
   const finishLineLeftRef = useRef<HTMLImageElement>(null)
   const finishLineRightRef = useRef<HTMLImageElement>(null)
-  const cloudGroupRef = useRef<HTMLDivElement>(null)
+
+  const joinRef = useRef<HTMLDivElement>(null)
+
   const tempGsap = useRef<ScrollTargetHandle>(null)
 
   const { distance, setDistance } = useDistanceContext()
@@ -180,6 +185,14 @@ const Footer: React.FC = () => {
           },
         })
         break
+      default:
+        const join = {
+          id: 'join',
+          dom: null,
+        }
+        const useGsap = tempGsap.current?.handleGsap(join)
+        useGsap?.to(joinRef.current, { opacity: 0 })
+        break
     }
   }, [distance])
 
@@ -219,7 +232,7 @@ const Footer: React.FC = () => {
           ref={finishLineRightRef}
         />
       </div>
-      <div className="fixed right-4 bottom-4 w-[80px] cursor-pointer">
+      <div className="fixed right-4 bottom-4 w-[80px] cursor-pointer" ref={joinRef}>
         <p className="mb-2 text-center text-2xl text-primary">JOIN</p>
         <img src={joinHand} alt="joinHand" />
         <img src={btnJoin} alt="btnJoin" />
