@@ -1,5 +1,6 @@
 import { useDistanceContext } from '@/context/distanceContext'
 import ScrollTarget, { ScrollTargetHandle } from '@/components/ScrollTarget'
+import Parallax from 'parallax-js'
 
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
@@ -43,6 +44,8 @@ const Footer: React.FC = () => {
 
   const treeLeftRef = useRef<HTMLImageElement>(null)
   const treeRightRef = useRef<HTMLImageElement>(null)
+
+  const animalRef = useRef<any>(null)
 
   const tempGsap = useRef<ScrollTargetHandle>(null)
 
@@ -288,20 +291,26 @@ const Footer: React.FC = () => {
     }
   }, [distance])
 
+  useEffect(() => {
+    new Parallax(animalRef.current, { pointerEvents: false })
+  }, [])
+
   return (
     <>
       <ScrollTarget ref={tempGsap} />
       <div ref={footerGroupRef} className="fixed bottom-0 z-20">
-        <div className="absolute bottom-0 mt-[50%] flex w-full justify-around px-10">
-          <img className="w-[25%]" src={dog} alt="dog" ref={dogRef} />
+        <div className="absolute bottom-0 mt-[50%] flex w-full justify-around px-10" ref={animalRef} data-limit-y="0">
+          <img data-depth="0.5" className="w-[25%]" src={dog} alt="dog" ref={dogRef} />
           <img
-            className={`w-[28%] ${distance && 'mx-8 sm:mx-0'} relative duration-200`}
+            data-depth="0.5"
+            className={`w-[28%] ${distance && 'mx-8 sm:mx-0'} !relative duration-200`}
             src={cat}
             alt="cat"
             ref={catRef}
           />
           <img
-            className="relative -bottom-2 w-[25%] sm:-bottom-1 min-[1800px]:-bottom-8"
+            data-depth="0.5"
+            className="!relative mt-2 w-[25%] sm:mt-1 min-[1800px]:mt-14"
             src={pig}
             alt="pig"
             ref={pigRef}
