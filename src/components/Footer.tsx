@@ -5,16 +5,24 @@ import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 import road from '@/assets/images/main/road.png'
+
 import dog from '@/assets/images/character/character_f2e.gif'
 import pig from '@/assets/images/character/character_team.gif'
 import cat from '@/assets/images/character/character_ui.gif'
+
 import joinHand from '@/assets/images/btn/btn_joinHand.gif'
 import btnJoin from '@/assets/images/btn/btn_join.png'
+
 import leftCloud from '@/assets/images/bg/bg_decorate_01.png'
 import rightCloud from '@/assets/images/bg/bg_decorate_05.png'
+
 import finishLineLeft from '@/assets/images/main/finishLine_l.png'
 import finishLineRight from '@/assets/images/main/finishLine_r.png'
 import finish from '@/assets/images/main/finish_1.png'
+
+import grass from '@/assets/images/bg/bg_decorate_09.png'
+import treeLeft from '@/assets/images/bg/bg_decorate_04.png'
+import treeRight from '@/assets/images/bg/bg_decorate_08.png'
 
 const Footer: React.FC = () => {
   const footerGroupRef = useRef<HTMLDivElement>(null)
@@ -29,6 +37,12 @@ const Footer: React.FC = () => {
   const finishLineRightRef = useRef<HTMLImageElement>(null)
 
   const joinRef = useRef<HTMLDivElement>(null)
+
+  const grassLeftRef = useRef<HTMLImageElement>(null)
+  const grassRightRef = useRef<HTMLImageElement>(null)
+
+  const treeLeftRef = useRef<HTMLImageElement>(null)
+  const treeRightRef = useRef<HTMLImageElement>(null)
 
   const tempGsap = useRef<ScrollTargetHandle>(null)
 
@@ -70,6 +84,7 @@ const Footer: React.FC = () => {
     })
   }
 
+  const animalDom = [dogRef.current, pigRef.current, catRef.current]
   const finishLast = () => {
     const finishLast = {
       id: 'finishLast',
@@ -77,7 +92,6 @@ const Footer: React.FC = () => {
       fc: () => setDistance(distance + 1),
       last: true,
     }
-    const animalDom = [dogRef.current, pigRef.current, catRef.current]
     const useGsap = tempGsap.current?.handleGsap(finishLast)
     useGsap
       ?.to(animalDom, { scale: '1.6' }, '<')
@@ -95,15 +109,14 @@ const Footer: React.FC = () => {
       .to(finishRef.current, { opacity: 0 })
   }
 
-  const finishFiret = () => {
-    const finishFiret = {
-      id: 'finishFiret',
+  const finishFirst = () => {
+    const finishFirst = {
+      id: 'finishFirst',
       dom: null,
       fc: finishLast,
     }
-    const animalDom = [dogRef.current, pigRef.current, catRef.current]
     const lineDom = [finishLineLeftRef.current, finishLineRightRef.current]
-    const useGsap = tempGsap.current?.handleGsap(finishFiret)
+    const useGsap = tempGsap.current?.handleGsap(finishFirst)
     useGsap
       ?.to(lineDom, { y: 1000 })
       .to(cloudGroupRef.current, { opacity: 1 })
@@ -119,6 +132,83 @@ const Footer: React.FC = () => {
       .to(cloudGroupRef.current, { padding: '0 20%', opacity: 0.8 })
   }
 
+  const handleGrassLast = () => {
+    const grassLast = {
+      id: 'grassLast',
+      dom: null,
+    }
+    const useGsap = tempGsap.current?.handleGsap(grassLast)
+    useGsap
+      ?.to(grassLeftRef.current, { x: 150, y: -45, width: '90px' }, '<')
+      .to(grassRightRef.current, { x: -150, y: -45, width: '90px' })
+      .to(grassLeftRef.current, { x: 200, y: -60, opacity: 0, width: '70px' }, '<')
+      .to(grassRightRef.current, { x: -200, y: -60, opacity: 0, width: '70px' })
+  }
+
+  const handleGrassTransitions = () => {
+    const grassTransitions = {
+      id: 'grassTransitions',
+      dom: null,
+      fc: handleGrassLast,
+    }
+    const useGsap = tempGsap.current?.handleGsap(grassTransitions)
+    useGsap
+      ?.to([grassLeftRef.current, grassRightRef.current], { y: 0, opacity: 1 })
+      .to(grassLeftRef.current, { x: 50, y: -15, width: '130px' }, '<')
+      .to(grassRightRef.current, { x: -50, y: -15, width: '130px' })
+      .to(grassLeftRef.current, { x: 100, y: -30, width: '110px' }, '<')
+      .to(grassRightRef.current, { x: -100, y: -15, width: '110px' })
+  }
+
+  const handleGrassFirst = () => {
+    const grassFirst = {
+      id: 'grassFirst',
+      dom: null,
+      fc: handleGrassTransitions,
+    }
+    const useGsap = tempGsap.current?.handleGsap(grassFirst)
+    useGsap?.to([grassLeftRef.current, grassRightRef.current], { y: 100 })
+  }
+
+  const handleTreeLast = () => {
+    const treeLast = {
+      id: 'treeLast',
+      dom: null,
+    }
+    const useGsap = tempGsap.current?.handleGsap(treeLast)
+    useGsap
+      ?.to(treeLeftRef.current, { x: 100, y: -15, width: '230px' }, '<')
+      .to(treeRightRef.current, { x: -100, y: -15, width: '230px' }, '<')
+      .to(treeLeftRef.current, { x: 200, y: -30, width: '210px', opacity: 0 }, '<')
+      .to(treeRightRef.current, { x: -200, y: -30, width: '210px', opacity: 0 })
+  }
+
+  const handleTransitions = () => {
+    const treeTransitions = {
+      id: 'treeTransitions',
+      dom: null,
+      fc: handleTreeLast,
+    }
+    const useGsap = tempGsap.current?.handleGsap(treeTransitions)
+    useGsap
+      ?.to([treeLeftRef.current, treeRightRef.current], { y: 0, opacity: 1 }, '<')
+      .to(treeLeftRef.current, { x: 0, width: '300px' }, '<')
+      .to(treeRightRef.current, { x: 0, width: '300px' })
+  }
+
+  const handleTreeFirst = () => {
+    const treeFirst = {
+      id: 'treeFirst',
+      dom: null,
+      fc: handleTransitions,
+    }
+    const useGsap = tempGsap.current?.handleGsap(treeFirst)
+    useGsap
+      ?.to([treeLeftRef.current, treeRightRef.current], { y: 200 }, '<')
+      .to(treeLeftRef.current, { x: -50 }, '<')
+      .to(treeRightRef.current, { x: 50 })
+  }
+
   useEffect(() => {
     switch (distance) {
       case 0:
@@ -130,6 +220,7 @@ const Footer: React.FC = () => {
       case 1:
         mobile()
         pcSmall()
+        handleGrassFirst()
         break
       case 2:
         mobile()
@@ -175,13 +266,14 @@ const Footer: React.FC = () => {
             gsap.to(catRef.current, { padding: '0 20px' })
           },
         })
+        handleTreeFirst()
         break
       case 8:
         mobile()
         pcBig()
         ScrollTrigger.matchMedia({
           '(min-width: 640px)': () => {
-            finishFiret()
+            finishFirst()
           },
         })
         break
@@ -216,6 +308,31 @@ const Footer: React.FC = () => {
           />
         </div>
         <img src={road} alt="road" />
+        <img
+          style={{ transform: 'rotateY(180deg)' }}
+          className="absolute -bottom-[30%] -left-[10%] -z-10 w-[150px] opacity-0"
+          src={grass}
+          alt="grass"
+          ref={grassLeftRef}
+        />
+        <img
+          className="absolute -bottom-[30%] -right-[10%] -z-10 w-[150px] opacity-0"
+          src={grass}
+          alt="grass"
+          ref={grassRightRef}
+        />
+        <img
+          className="absolute -bottom-[40%] -left-[30%] -z-10 w-[250px] opacity-0"
+          src={treeLeft}
+          alt="treeLeft"
+          ref={treeLeftRef}
+        />
+        <img
+          className="absolute -bottom-[40%] -right-[30%] -z-10 w-[250px] opacity-0"
+          src={treeRight}
+          alt="treeLeft"
+          ref={treeRightRef}
+        />
       </div>
       <img className="fixed -top-[8%] z-10 hidden" src={finish} alt="finish" ref={finishRef} />
       <div className="fixed bottom-[20%] z-20 flex w-screen">
