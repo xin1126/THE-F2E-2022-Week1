@@ -1,5 +1,6 @@
 import device from 'current-device'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { gsap } from 'gsap'
 
 import { DistanceContext } from '@/context/distanceContext'
 
@@ -15,12 +16,15 @@ import SponsorSection from './components/SponsorSection'
 import FinishSection from './components/FinishSection'
 import FooterSection from '@/components/Footer'
 import MapSection from '@/components/Map'
+import Loading from '@/components/Loading'
 
 const Home: React.FC = () => {
   const [distance, setDistance] = useState(0)
   const [through, setThrough] = useState<string[]>([])
   const [resetFirst, setResetFirst] = useState(0)
+  const [loading, setLoading] = useState(true)
   const setTimerRef = useRef<number | null>(null)
+  const bgRef = useRef<HTMLDivElement>(null)
 
   const resizeReset = useCallback(() => {
     setTimerRef.current = setTimeout(() => {
@@ -92,15 +96,35 @@ const Home: React.FC = () => {
     })
   }, [])
 
+  useEffect(() => {
+    const useGsap = gsap.timeline()
+
+    if (!loading) {
+      useGsap
+        .to(bgRef.current, {
+          clipPath: 'circle(100%)',
+          duration: 1.5,
+        })
+        .to(bgRef.current, {
+          height: 'auto',
+        })
+    }
+  }, [loading])
+
   return (
     <DistanceContext.Provider value={{ distance, setDistance }}>
-      <div className="flex h-[2900vh] flex-col items-center overflow-hidden bg-background">
-        <HeaderSection />
-        <FirstSection resetFirst={resetFirst} />
-        {main.map((item) => through.includes(item.tag) && <item.section key={item.tag} />)}
-        <FooterSection />
-        <MapSection />
+      <div className="bg-background">
+        <div style={{ clipPath: 'circle(0%)' }} className="h-screen bg-background" ref={bgRef}>
+          <div className="flex h-[2900vh] flex-col items-center overflow-hidden bg-background">
+            <HeaderSection />
+            <FirstSection resetFirst={resetFirst} />
+            {main.map((item) => through.includes(item.tag) && <item.section key={item.distance} />)}
+            <FooterSection />
+            <MapSection />
+          </div>
+        </div>
       </div>
+      {loading && <Loading setLoading={setLoading} />}
     </DistanceContext.Provider>
   )
 }
