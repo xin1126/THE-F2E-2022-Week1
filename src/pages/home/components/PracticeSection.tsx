@@ -1,8 +1,8 @@
 import { useDistanceContext } from '@/context/distanceContext'
 import ScrollTarget, { ScrollTargetHandle } from '@/components/ScrollTarget'
 
-import leftCloud from '@/assets/images/bg/bg_decorate_03.png'
-import rightCloud from '@/assets/images/bg/bg_decorate_07.png'
+import { bg } from '@/lib/images'
+const { leftHollowCloud, rightHollowCloud } = bg
 
 const PracticeSection: React.FC = () => {
   const cloudGroupRef = useRef<HTMLDivElement>(null)
@@ -69,8 +69,8 @@ const PracticeSection: React.FC = () => {
           區區修煉已經無法滿足了嗎？
         </p>
         <div className="flex justify-between opacity-0" ref={cloudGroupRef}>
-          <img className="relative -left-20 w-[360px]" src={leftCloud} alt="leftCloud" />
-          <img className="relative -right-20 w-[450px]" src={rightCloud} alt="rightCloud" />
+          <img className="relative -left-20 w-[360px]" src={leftHollowCloud} alt="leftHollowCloud" />
+          <img className="relative -right-20 w-[450px]" src={rightHollowCloud} alt="rightHollowCloud" />
         </div>
       </div>
     </>

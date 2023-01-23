@@ -1,8 +1,8 @@
 import ScrollTarget, { ScrollTargetHandle } from '@/components/ScrollTarget'
 
-import logo from '@/assets/images/logo/logo.png'
-import joinHand from '@/assets/images/btn/btn_joinHand.gif'
-import btnJoin from '@/assets/images/btn/btn_join.png'
+import { btn, logoGroup } from '@/lib/images'
+const { joinHand, btnJoin } = btn
+const { logo } = logoGroup
 
 const FinishSection: React.FC = () => {
   const logoRef = useRef<HTMLImageElement>(null)

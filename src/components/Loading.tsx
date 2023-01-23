@@ -1,8 +1,9 @@
 import { gsap } from 'gsap'
 
-import images from '@/lib/images'
+import images, { character } from '@/lib/images'
+const { dog, pig, cat } = character
 
-type Key = 'bg' | 'btn' | 'character' | 'logo' | 'main'
+type Key = 'bg' | 'btn' | 'character' | 'logoGroup' | 'main'
 
 type Action = { type: 'imgComplete'; payload: boolean } | { type: 'gsapComplete'; payload: boolean }
 
@@ -37,8 +38,6 @@ const reducer = (state: State, action: Action): State => {
 const Loading: React.FC<Props> = ({ setLoading }) => {
   const [state, dispatch] = useReducer(reducer, initialState)
   const loadingRef = useRef<HTMLDivElement>(null)
-
-  const { dog, pig, cat } = images.character
 
   let tempImages: string[] = []
 

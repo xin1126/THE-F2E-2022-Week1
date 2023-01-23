@@ -3,9 +3,8 @@ import { useDistanceContext } from '@/context/distanceContext'
 import { gsap } from 'gsap'
 import { MotionPathPlugin } from 'gsap/MotionPathPlugin'
 
-import map from '@/assets/images/main/map.svg'
-import mapFinish from '@/assets/images/main/map_finish.svg'
-import mapNow from '@/assets/images/main/map_now.gif'
+import { main } from '@/lib/images'
+const { map, mapFinish, mapNow } = main
 
 interface GsapTO {
   x?: number

@@ -1,10 +1,9 @@
 import { useDistanceContext } from '@/context/distanceContext'
 import ScrollTarget, { ScrollTargetHandle } from '@/components/ScrollTarget'
 
-import talk from '@/assets/images/bg/bg_talking.png'
-import talkMoble from '@/assets/images/bg/bg_talking_c.png'
-import awardTrophy from '@/assets/images/main/award_trophy.png'
-import awardLight from '@/assets/images/main/award_light.png'
+import { main, bg } from '@/lib/images'
+const { talk, talkMoble } = bg
+const { awardTrophy, awardLight } = main
 
 const PracticeSection: React.FC = () => {
   const bonusTalkRef = useRef<HTMLDivElement>(null)

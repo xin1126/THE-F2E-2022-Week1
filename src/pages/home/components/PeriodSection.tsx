@@ -2,11 +2,9 @@ import { useDistanceContext } from '@/context/distanceContext'
 import ScrollTarget, { ScrollTargetHandle } from '@/components/ScrollTarget'
 import device from 'current-device'
 
-import talk from '@/assets/images/bg/bg_talking.png'
-import talkMoble from '@/assets/images/bg/bg_talking_c.png'
-import week1 from '@/assets/images/main/week_1.png'
-import week2 from '@/assets/images/main/week_2.png'
-import week3 from '@/assets/images/main/week_3.png'
+import { main, bg } from '@/lib/images'
+const { talk, talkMoble } = bg
+const { week1, week2, week3 } = main
 
 const PeriodSection: React.FC = () => {
   const periodTalkRef = useRef<HTMLDivElement>(null)

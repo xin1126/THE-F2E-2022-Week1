@@ -1,29 +1,16 @@
 import { useDistanceContext } from '@/context/distanceContext'
 import ScrollTarget, { ScrollTargetHandle } from '@/components/ScrollTarget'
+
 import Parallax from 'parallax-js'
 
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
-import road from '@/assets/images/main/road.png'
-
-import dog from '@/assets/images/character/character_f2e.gif'
-import pig from '@/assets/images/character/character_team.gif'
-import cat from '@/assets/images/character/character_ui.gif'
-
-import joinHand from '@/assets/images/btn/btn_joinHand.gif'
-import btnJoin from '@/assets/images/btn/btn_join.png'
-
-import leftCloud from '@/assets/images/bg/bg_decorate_01.png'
-import rightCloud from '@/assets/images/bg/bg_decorate_05.png'
-
-import finishLineLeft from '@/assets/images/main/finishLine_l.png'
-import finishLineRight from '@/assets/images/main/finishLine_r.png'
-import finish from '@/assets/images/main/finish_1.png'
-
-import grass from '@/assets/images/bg/bg_decorate_09.png'
-import treeLeft from '@/assets/images/bg/bg_decorate_04.png'
-import treeRight from '@/assets/images/bg/bg_decorate_08.png'
+import { main, character, btn, bg } from '@/lib/images'
+const { dog, pig, cat } = character
+const { joinHand, btnJoin } = btn
+const { leftSolidCloud, rightSolidCloud, grass, treeLeft, treeRight } = bg
+const { road, finishLineLeft, finishLineRight, finish } = main
 
 const Footer: React.FC = () => {
   const footerGroupRef = useRef<HTMLDivElement>(null)
@@ -371,13 +358,13 @@ const Footer: React.FC = () => {
       <div ref={cloudGroupRef} className="fixed top-[60%] flex w-full justify-between opacity-0 sm:top-[40%]">
         <img
           className="relative -left-[20%] w-[200px] sm:-left-[15%] sm:w-[300px] xl:w-[430px]"
-          src={leftCloud}
-          alt="leftCloud"
+          src={leftSolidCloud}
+          alt="leftSolidCloud"
         />
         <img
           className="relative -right-[20%] w-[235px] sm:-right-[15] sm:w-[335px] xl:w-[485px]"
-          src={rightCloud}
-          alt="rightCloud"
+          src={rightSolidCloud}
+          alt="rightSolidCloud"
         />
       </div>
     </>

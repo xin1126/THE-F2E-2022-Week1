@@ -1,13 +1,10 @@
 import { useDistanceContext } from '@/context/distanceContext'
 import ScrollTarget, { ScrollTargetHandle } from '@/components/ScrollTarget'
 
-import talk from '@/assets/images/bg/bg_talking.png'
-import talkMoble from '@/assets/images/bg/bg_talking_c.png'
-import btnSponsor from '@/assets/images/btn/btn_sponsor.png'
-import btnSponsorHover from '@/assets/images/btn/btn_sponsor_h.png'
-import blockstudio from '@/assets/images/main/logo_blockstudio.png'
-import kdanmobile from '@/assets/images/main/logo_kdanmobile.png'
-import titansoft from '@/assets/images/main/logo_titansoft.png'
+import { main, bg, btn } from '@/lib/images'
+const { talk, talkMoble } = bg
+const { btnSponsor, btnSponsorHover } = btn
+const { blockstudio, kdanmobile, titansoft } = main
 
 const SponsorSection: React.FC = () => {
   const sponsorTalkRef = useRef<HTMLDivElement>(null)

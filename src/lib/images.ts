@@ -35,6 +35,7 @@ import awardLight from '@/assets/images/main/award_light.png'
 import dateLine from '@/assets/images/main/date_line.png'
 import weekLine from '@/assets/images/main/date_weekLine.png'
 import start from '@/assets/images/main/date_start.png'
+import firstStart from '@/assets/images/main/start.png'
 import upload from '@/assets/images/main/date_upload.png'
 import finishLineLeft from '@/assets/images/main/finishLine_l.png'
 import finishLineRight from '@/assets/images/main/finishLine_r.png'
@@ -57,66 +58,77 @@ import week1 from '@/assets/images/main/week_1.png'
 import week2 from '@/assets/images/main/week_2.png'
 import week3 from '@/assets/images/main/week_3.png'
 
+export const bg = {
+  leftSolidCloud,
+  rightSolidCloud,
+  leftHollowCloud,
+  rightHollowCloud,
+  treeLeft,
+  treeRight,
+  grass,
+  talk,
+  talkMoble,
+}
+
+export const btn = {
+  btnOpen,
+  btnJoin,
+  joinHand,
+  btnSponsor,
+  btnSponsorHover,
+  user,
+}
+
+export const character = {
+  dog,
+  pig,
+  cat,
+  dogStill,
+  pigStill,
+  catStill,
+}
+
+export const logoGroup = {
+  logo,
+  logoText,
+}
+
+export const main = {
+  awardTrophy,
+  awardLight,
+  dateLine,
+  weekLine,
+  start,
+  upload,
+  finishLineLeft,
+  finishLineRight,
+  finish,
+  blockstudio,
+  kdanmobile,
+  titansoft,
+  map,
+  mapFinish,
+  mapNow,
+  question1,
+  question2,
+  question3,
+  readyFrame,
+  ready1,
+  ready2,
+  ready3,
+  road,
+  week1,
+  week2,
+  week3,
+  firstStart,
+}
+
 const images = {
-  bg: {
-    leftSolidCloud,
-    rightSolidCloud,
-    leftHollowCloud,
-    rightHollowCloud,
-    treeLeft,
-    treeRight,
-    grass,
-    talk,
-    talkMoble,
-  },
-  btn: {
-    btnOpen,
-    btnJoin,
-    joinHand,
-    btnSponsor,
-    btnSponsorHover,
-    user,
-  },
-  character: {
-    dog,
-    pig,
-    cat,
-    dogStill,
-    pigStill,
-    catStill,
-  },
-  logo: {
-    logo,
-    logoText,
-  },
-  main: {
-    awardTrophy,
-    awardLight,
-    dateLine,
-    weekLine,
-    start,
-    upload,
-    finishLineLeft,
-    finishLineRight,
-    finish,
-    blockstudio,
-    kdanmobile,
-    titansoft,
-    map,
-    mapFinish,
-    mapNow,
-    question1,
-    question2,
-    question3,
-    readyFrame,
-    ready1,
-    ready2,
-    ready3,
-    road,
-    week1,
-    week2,
-    week3,
-  },
+  bg,
+  btn,
+  character,
+  logoGroup,
+  main,
 }
 
 export default images

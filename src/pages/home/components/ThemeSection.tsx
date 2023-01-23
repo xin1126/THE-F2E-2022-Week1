@@ -2,13 +2,10 @@ import { useDistanceContext } from '@/context/distanceContext'
 import ScrollTarget, { ScrollTargetHandle } from '@/components/ScrollTarget'
 import device from 'current-device'
 
-import talk from '@/assets/images/bg/bg_talking.png'
-import talkMoble from '@/assets/images/bg/bg_talking_c.png'
-import btn from '@/assets/images/btn/btn_join.png'
-import joinHand from '@/assets/images/btn/btn_joinHand.gif'
-import dog from '@/assets/images/character/character_f2e.png'
-import pig from '@/assets/images/character/character_team.png'
-import cat from '@/assets/images/character/character_ui.png'
+import { character, bg, btn } from '@/lib/images'
+const { talk, talkMoble } = bg
+const { btnJoin, joinHand } = btn
+const { dog, pig, cat } = character
 
 const ThemeSection: React.FC = () => {
   const themeTalkRef = useRef<HTMLDivElement>(null)
@@ -123,7 +120,7 @@ const ThemeSection: React.FC = () => {
             <img className="mr-4 w-[100px] sm:hidden" src={dog} alt="dog" />
             <div className="flex flex-col items-center">
               <img className="w-[60px] group-hover:opacity-100 sm:opacity-0" src={joinHand} alt="joinHand" />
-              <img className="w-[100px] cursor-pointer" src={btn} alt="btn" />
+              <img className="w-[100px] cursor-pointer" src={btnJoin} alt="btnJoin" />
               <p className="text-3xl text-primary">前端工程師</p>
             </div>
           </div>
@@ -133,7 +130,7 @@ const ThemeSection: React.FC = () => {
           >
             <div className="flex flex-col items-center">
               <img className="w-[60px] group-hover:opacity-100 sm:opacity-0" src={joinHand} alt="joinHand" />
-              <img className="w-[100px] cursor-pointer" src={btn} alt="btn" />
+              <img className="w-[100px] cursor-pointer" src={btnJoin} alt="btnJoin" />
               <p className="text-3xl text-primary">ＵＩ設計師</p>
             </div>
             <img className="ml-4 w-[100px] sm:hidden" src={cat} alt="cat" />
@@ -145,7 +142,7 @@ const ThemeSection: React.FC = () => {
             <img className="mr-4 w-[100px] sm:hidden" src={pig} alt="pig" />
             <div className="flex flex-col items-center">
               <img className="w-[60px] group-hover:opacity-100 sm:opacity-0" src={joinHand} alt="joinHand" />
-              <img className="w-[100px] cursor-pointer" src={btn} alt="btn" />
+              <img className="w-[100px] cursor-pointer" src={btnJoin} alt="btnJoin" />
               <p className="text-3xl text-primary">團體組(UI+前端)</p>
             </div>
           </div>

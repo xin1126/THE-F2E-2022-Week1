@@ -3,16 +3,11 @@ import ScrollTarget, { ScrollTargetHandle } from '@/components/ScrollTarget'
 
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
-import start from '@/assets/images/main/start.png'
-import logo from '@/assets/images/logo/logo.png'
-import logoText from '@/assets/images/logo/logo_text.png'
 import user from '@/assets/images/ic/ic_users.svg'
-import leftCloud from '@/assets/images/bg/bg_decorate_01.png'
-import rightCloud from '@/assets/images/bg/bg_decorate_05.png'
-import readyFrame from '@/assets/images/main/ready_frame.png'
-import ready1 from '@/assets/images/main/ready_1.png'
-import ready2 from '@/assets/images/main/ready_2.png'
-import ready3 from '@/assets/images/main/ready_3.png'
+import { main, bg, logoGroup } from '@/lib/images'
+const { leftSolidCloud, rightSolidCloud } = bg
+const { firstStart, readyFrame, ready1, ready2, ready3 } = main
+const { logo, logoText } = logoGroup
 
 interface Props {
   resetFirst: number
@@ -177,18 +172,18 @@ const FirstSection: React.FC<Props> = ({ resetFirst }) => {
             </div>
           </li>
         </ul>
-        <img className="absolute top-0 -z-10 hidden max-w-[1430px] xl:block" src={start} alt="start" />
+        <img className="absolute top-0 -z-10 hidden max-w-[1430px] xl:block" src={firstStart} alt="firstStart" />
       </div>
       <div ref={cloudGroupRef} className="fixed top-[60%] flex w-full justify-between sm:top-[40%] xl:px-[5%]">
         <img
           className="relative -left-[20%] w-[200px] sm:left-0 sm:w-[300px] xl:w-[430px]"
-          src={leftCloud}
-          alt="leftCloud"
+          src={leftSolidCloud}
+          alt="leftSolidCloud"
         />
         <img
           className="relative -right-[20%] w-[235px] sm:right-0 sm:w-[335px] xl:w-[485px]"
-          src={rightCloud}
-          alt="rightCloud"
+          src={rightSolidCloud}
+          alt="rightSolidCloud"
         />
       </div>
       <div ref={readyFrameRef} className="fixed top-[40%] right-0 z-10 hidden xl:block">

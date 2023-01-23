@@ -1,12 +1,9 @@
 import { useDistanceContext } from '@/context/distanceContext'
 import ScrollTarget, { ScrollTargetHandle } from '@/components/ScrollTarget'
 
-import dateLine from '@/assets/images/main/date_line.png'
-import weekLine from '@/assets/images/main/date_weekLine.png'
-import start from '@/assets/images/main/date_start.png'
-import upload from '@/assets/images/main/date_upload.png'
-import joinHand from '@/assets/images/btn/btn_joinHand.gif'
-import btnJoin from '@/assets/images/btn/btn_join.png'
+import { main, btn } from '@/lib/images'
+const { joinHand, btnJoin } = btn
+const { dateLine, weekLine, start, upload } = main
 
 const DateSection: React.FC = () => {
   const DateSectionRef = useRef<HTMLDivElement>(null)

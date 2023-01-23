@@ -2,11 +2,9 @@ import { useDistanceContext } from '@/context/distanceContext'
 import ScrollTarget, { ScrollTargetHandle } from '@/components/ScrollTarget'
 import device from 'current-device'
 
-import talk from '@/assets/images/bg/bg_talking.png'
-import talkMoble from '@/assets/images/bg/bg_talking_c.png'
-import question1 from '@/assets/images/main/question_1.png'
-import question2 from '@/assets/images/main/question_2.png'
-import question3 from '@/assets/images/main/question_3.png'
+import { main, bg } from '@/lib/images'
+const { talk, talkMoble } = bg
+const { question1, question2, question3 } = main
 
 const TroubledSection: React.FC = () => {
   const troubledTalkRef = useRef<HTMLDivElement>(null)
