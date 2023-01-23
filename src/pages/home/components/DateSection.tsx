@@ -145,10 +145,13 @@ const DateSection: React.FC = () => {
   return (
     <>
       <ScrollTarget ref={gsap} />
-      <div className="fixed top-[45%] z-10 hidden max-w-[1440px]" ref={DateSectionRef}>
+      <div
+        className="fixed top-[60%] z-10 hidden max-w-[1000px] min-[1800px]:top-[45%] min-[1800px]:max-w-[1440px]"
+        ref={DateSectionRef}
+      >
         <div ref={hiddenLineRef} className="absolute top-0 z-10 h-[300px] w-full bg-background"></div>
         <img ref={lineRef} className="opacity-0" src={dateLine} alt="line" />
-        <ul className="relative top-[-480px] flex w-full justify-around pb-[350px]">
+        <ul className="relative top-[-465px] flex w-full justify-around pb-[350px] min-[1800px]:top-[-480px]">
           <li>
             <div className="relative z-10 bg-background" ref={singupSectionRef}>
               <div className="flex flex-col items-center opacity-0" ref={singupContentRef}>
@@ -163,7 +166,7 @@ const DateSection: React.FC = () => {
             </div>
             <img className="h-[140px] opacity-0" src={weekLine} alt="weekLine" ref={singupLineRef} />
           </li>
-          <li className="relative top-[-14px]">
+          <li className="relative  top-[-6px] min-[1800px]:top-[-14px]">
             <div className="relative top-16 z-10 bg-background" ref={startSectionRef}>
               <div className="flex flex-col items-center opacity-0" ref={startContentRef}>
                 <img className="w-[140px]" src={start} alt="start" />

@@ -24,7 +24,7 @@ const FinishSection: React.FC = () => {
     <>
       <ScrollTarget ref={gsap} />
       <div className="fixed top-[10%] z-30 flex flex-col items-center">
-        <img className="mb-4 w-[520px] opacity-0" src={logo} alt="logo" ref={logoRef} />
+        <img className="mb-4 w-[350px] opacity-0 min-[1800px]:w-[520px]" src={logo} alt="logo" ref={logoRef} />
         <div className="flex flex-col items-center opacity-0" ref={joinRef}>
           <a href="https://2022.thef2e.com/" target="_blank" className="w-[120px]" rel="noreferrer">
             <img src={joinHand} alt="joinHand" />

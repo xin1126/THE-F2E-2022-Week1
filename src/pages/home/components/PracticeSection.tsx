@@ -61,9 +61,9 @@ const PracticeSection: React.FC = () => {
   return (
     <>
       <ScrollTarget ref={gsap} />
-      <div className="fixed top-[25%] w-full">
+      <div className="fixed top-[25%] z-20 w-full">
         <p
-          className="absolute right-1/2 -top-16 translate-x-[50%] whitespace-nowrap text-[100px] text-secondary opacity-0"
+          className="absolute right-1/2 -top-16 z-10 translate-x-[50%] whitespace-nowrap text-[100px] text-secondary opacity-0"
           ref={practiceTextRef}
         >
           區區修煉已經無法滿足了嗎？
