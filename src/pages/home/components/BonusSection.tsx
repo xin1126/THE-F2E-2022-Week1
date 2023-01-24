@@ -101,10 +101,10 @@ const PracticeSection: React.FC = () => {
             <ul className="text-lg text-primary sm:text-xl">
               <li>1. 初選佳作 共六十位 數位獎狀</li>
               <li>
-                2. 個人企業獎 共六位 NTD <span className="text-4xl text-secondary">3,000</span> /位
+                2. 個人企業獎 共六位 NTD <span className="text-xl text-secondary sm:text-4xl">3,000</span> /位
               </li>
               <li className="mb-2">
-                3. 團體企業獎 共三組 NTD <span className="text-4xl text-secondary">10,000</span> /組
+                3. 團體企業獎 共三組 NTD <span className="text-xl text-secondary sm:text-4xl">10,000</span> /組
               </li>
               <li>4. 以上皆提供完賽數位獎狀</li>
             </ul>
