@@ -165,7 +165,7 @@ const DateSection: React.FC = () => {
     <>
       <ScrollTarget ref={gsap} />
       <div
-        className="top-[60%] z-10 mt-12 w-full max-w-[1000px] sm:fixed sm:mt-0 lg:hidden min-[1800px]:top-[45%] min-[1800px]:max-w-[1440px]"
+        className="top-[60%] z-20 mt-12 w-full max-w-[1000px] sm:fixed sm:mt-0 lg:hidden min-[1800px]:top-[45%] min-[1800px]:max-w-[1440px]"
         ref={DateSectionRef}
       >
         <div className="relative mx-auto mb-12 w-full opacity-0" ref={dateTalkRef}>
@@ -178,10 +178,15 @@ const DateSection: React.FC = () => {
           <li>
             <div className="relative z-10 bg-background" ref={singupSectionRef}>
               <div className="flex flex-col items-center opacity-0" ref={singupContentRef}>
-                <div className="mb-4 w-[80px] cursor-pointer">
+                <a
+                  href="https://2022.thef2e.com/"
+                  target="_blank"
+                  className="mb-4 inline-block w-[80px]"
+                  rel="noreferrer"
+                >
                   <img src={joinHand} alt="joinHand" />
                   <img src={btnJoin} alt="btnJoin" />
-                </div>
+                </a>
                 <p className="mb-2 text-5xl text-secondary">SIGN UP</p>
                 <div className="mb-2 w-fit rounded-3xl bg-primary px-8 py-1 text-2xl text-white">10/13 - 11/6</div>
                 <p className="mb-2 text-lg text-info">截止前可修改報名組別</p>

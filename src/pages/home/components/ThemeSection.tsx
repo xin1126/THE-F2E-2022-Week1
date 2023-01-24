@@ -120,8 +120,10 @@ const ThemeSection: React.FC = () => {
           >
             <img className="mr-4 w-[100px] sm:hidden" src={dog} alt="dog" />
             <div className="flex flex-col items-center">
-              <img className="w-[60px] group-hover:opacity-100 sm:opacity-0" src={joinHand} alt="joinHand" />
-              <img className="w-[100px] cursor-pointer" src={btnJoin} alt="btnJoin" />
+              <a href="https://2022.thef2e.com/" target="_blank" className="inline-block w-[100px]" rel="noreferrer">
+                <img className="group-hover:opacity-100 sm:opacity-0" src={joinHand} alt="joinHand" />
+                <img src={btnJoin} alt="btnJoin" />
+              </a>
               <p className="text-3xl text-primary">前端工程師</p>
             </div>
           </div>
@@ -130,8 +132,10 @@ const ThemeSection: React.FC = () => {
             ref={catRef}
           >
             <div className="flex flex-col items-center">
-              <img className="w-[60px] group-hover:opacity-100 sm:opacity-0" src={joinHand} alt="joinHand" />
-              <img className="w-[100px] cursor-pointer" src={btnJoin} alt="btnJoin" />
+              <a href="https://2022.thef2e.com/" target="_blank" className="inline-block w-[100px]" rel="noreferrer">
+                <img className="group-hover:opacity-100 sm:opacity-0" src={joinHand} alt="joinHand" />
+                <img src={btnJoin} alt="btnJoin" />
+              </a>
               <p className="text-3xl text-primary">ＵＩ設計師</p>
             </div>
             <img className="ml-4 w-[100px] sm:hidden" src={cat} alt="cat" />
@@ -142,8 +146,10 @@ const ThemeSection: React.FC = () => {
           >
             <img className="mr-4 w-[100px] sm:hidden" src={pig} alt="pig" />
             <div className="flex flex-col items-center">
-              <img className="w-[60px] group-hover:opacity-100 sm:opacity-0" src={joinHand} alt="joinHand" />
-              <img className="w-[100px] cursor-pointer" src={btnJoin} alt="btnJoin" />
+              <a href="https://2022.thef2e.com/" target="_blank" className="inline-block w-[100px]" rel="noreferrer">
+                <img className="group-hover:opacity-100 sm:opacity-0" src={joinHand} alt="joinHand" />
+                <img src={btnJoin} alt="btnJoin" />
+              </a>
               <p className="text-3xl text-primary">團體組(UI+前端)</p>
             </div>
           </div>

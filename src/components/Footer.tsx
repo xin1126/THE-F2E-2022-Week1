@@ -369,10 +369,12 @@ const Footer: React.FC = () => {
           ref={finishLineRightRef}
         />
       </div>
-      <div className="fixed right-4 bottom-4 hidden w-[80px] cursor-pointer xl:block" ref={joinRef}>
+      <div className="fixed right-4 bottom-4 hidden cursor-pointer xl:block" ref={joinRef}>
         <p className="mb-2 text-center text-2xl text-primary">JOIN</p>
-        <img src={joinHand} alt="joinHand" />
-        <img src={btnJoin} alt="btnJoin" />
+        <a href="https://2022.thef2e.com/" target="_blank" className="inline-block w-[80px]" rel="noreferrer">
+          <img src={joinHand} alt="joinHand" />
+          <img src={btnJoin} alt="btnJoin" />
+        </a>
       </div>
       <div ref={cloudGroupRef} className="fixed top-[60%] flex w-full justify-between opacity-0 sm:top-[40%]">
         <img
