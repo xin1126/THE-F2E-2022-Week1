@@ -1,9 +1,8 @@
 import { useDistanceContext } from '@/context/distanceContext'
 import ScrollTarget, { ScrollTargetHandle } from '@/components/ScrollTarget'
-import device from 'current-device'
 
 import { character, bg, btn } from '@/lib/images'
-const { talk, talkMoble } = bg
+const { talk, talkMobile } = bg
 const { btnJoin, joinHand } = btn
 const { dog, pig, cat } = character
 
@@ -15,7 +14,7 @@ const ThemeSection: React.FC = () => {
   const btnGroupRef = useRef<HTMLDivElement>(null)
   const gsap = useRef<ScrollTargetHandle>(null)
 
-  const { distance, setDistance } = useDistanceContext()
+  const { isMobile, distance, setDistance } = useDistanceContext()
 
   const handleExit = () => {
     const themeExit = {
@@ -25,7 +24,7 @@ const ThemeSection: React.FC = () => {
       last: true,
     }
     const useGsap = gsap.current?.handleGsap(themeExit)
-    if (device.mobile()) return
+    if (isMobile) return
     useGsap
       ?.to([btnGroupRef.current, themeTalkRef.current], {
         opacity: 0.5,
@@ -38,12 +37,12 @@ const ThemeSection: React.FC = () => {
   const handleBtn = () => {
     const themeBtn = {
       id: 'themeBtn',
-      dom: null,
+      dom: isMobile ? catRef.current : null,
       fc: handleExit,
     }
     const useGsap = gsap.current?.handleGsap(themeBtn)
 
-    if (device.mobile()) {
+    if (isMobile) {
       useGsap
         ?.to(dogRef.current, {
           x: 200,
@@ -86,11 +85,10 @@ const ThemeSection: React.FC = () => {
   }
 
   const handleTalk = () => {
-    const fc = device.mobile() ? handleBtn : handleBtn
     const themeTalk = {
       id: 'themeTalk',
-      dom: device.mobile() ? themeTalkRef.current : null,
-      fc,
+      dom: isMobile ? themeTalkRef.current : null,
+      fc: handleBtn,
     }
     const useGsap = gsap.current?.handleGsap(themeTalk)
     useGsap?.to(themeTalkRef.current, { opacity: 1 })
@@ -98,6 +96,9 @@ const ThemeSection: React.FC = () => {
 
   useLayoutEffect(() => {
     handleTalk()
+    if (isMobile) {
+      handleBtn()
+    }
   }, [])
 
   return (
@@ -106,7 +107,7 @@ const ThemeSection: React.FC = () => {
       <div className="top-10 z-20 mt-12 w-full sm:fixed sm:mt-0 sm:w-auto">
         <div className="relative mx-auto mb-12 max-w-[700px] opacity-0" ref={themeTalkRef}>
           <img className="hidden h-[160px] w-full sm:block" src={talk} alt="talk" />
-          <img className="h-[80px] object-fill sm:hidden" src={talkMoble} alt="talk" />
+          <img className="h-[80px] object-fill sm:hidden" src={talkMobile} alt="talk" />
           <p className="absolute top-4 mb-6 w-full text-center text-2xl text-primary sm:top-10 sm:text-5xl">
             本屆主題：互動式網頁設計
           </p>

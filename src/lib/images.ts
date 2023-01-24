@@ -7,7 +7,7 @@ import treeLeft from '@/assets/images/bg/bg_decorate_04.png'
 import treeRight from '@/assets/images/bg/bg_decorate_08.png'
 import grass from '@/assets/images/bg/bg_decorate_09.png'
 import talk from '@/assets/images/bg/bg_talking.png'
-import talkMoble from '@/assets/images/bg/bg_talking_c.png'
+import talkMobile from '@/assets/images/bg/bg_talking_c.png'
 
 // btn
 import btnOpen from '@/assets/images/btn/btn_burger_open_h.png'
@@ -47,8 +47,10 @@ import map from '@/assets/images/main/map.svg'
 import mapFinish from '@/assets/images/main/map_finish.svg'
 import mapNow from '@/assets/images/main/map_now.gif'
 import question1 from '@/assets/images/main/question_1.png'
+import question1M from '@/assets/images/main/question_1_m.png'
 import question2 from '@/assets/images/main/question_2.png'
 import question3 from '@/assets/images/main/question_3.png'
+import question3M from '@/assets/images/main/question_3_m.png'
 import readyFrame from '@/assets/images/main/ready_frame.png'
 import ready1 from '@/assets/images/main/ready_1.png'
 import ready2 from '@/assets/images/main/ready_2.png'
@@ -67,7 +69,7 @@ export const bg = {
   treeRight,
   grass,
   talk,
-  talkMoble,
+  talkMobile,
 }
 
 export const btn = {
@@ -110,8 +112,10 @@ export const main = {
   mapFinish,
   mapNow,
   question1,
+  question1M,
   question2,
   question3,
+  question3M,
   readyFrame,
   ready1,
   ready2,

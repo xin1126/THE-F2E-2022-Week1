@@ -2,7 +2,7 @@ import { useDistanceContext } from '@/context/distanceContext'
 import ScrollTarget, { ScrollTargetHandle } from '@/components/ScrollTarget'
 
 import { main, bg, btn } from '@/lib/images'
-const { talk, talkMoble } = bg
+const { talk, talkMobile } = bg
 const { btnSponsor, btnSponsorHover } = btn
 const { blockstudio, kdanmobile, titansoft } = main
 
@@ -14,7 +14,7 @@ const SponsorSection: React.FC = () => {
 
   const gsap = useRef<ScrollTargetHandle>(null)
 
-  const { distance, setDistance } = useDistanceContext()
+  const { isMobile, distance, setDistance } = useDistanceContext()
 
   const handleExit = () => {
     const sponsorExit = {
@@ -24,15 +24,25 @@ const SponsorSection: React.FC = () => {
       last: true,
     }
     const useGsap = gsap.current?.handleGsap(sponsorExit)
+    if (isMobile) return
     useGsap
       ?.to(sponsorTalkRef.current, { opacity: 0 }, '<')
       .to([blockstudioRef.current, titansoftRef.current, kdanmobileRef.current], { opacity: 0, y: 80 })
   }
 
+  const hondleMobile = (id: string, dom: Element | null) => {
+    const data = {
+      id,
+      dom: dom,
+    }
+    const useGsap = gsap.current?.handleGsap(data)
+    useGsap?.to(dom, { y: 80 }).to(dom, { y: 0, opacity: 1 })
+  }
+
   const hondleSponsor = () => {
     const sponsor = {
       id: 'sponsor',
-      dom: null,
+      dom: isMobile ? blockstudioRef.current : null,
       fc: handleExit,
     }
     const useGsap = gsap.current?.handleGsap(sponsor)
@@ -57,19 +67,27 @@ const SponsorSection: React.FC = () => {
 
   useLayoutEffect(() => {
     handleTalk()
+    if (isMobile) {
+      hondleMobile('blockstudio', blockstudioRef.current)
+      hondleMobile('titansoft', titansoftRef.current)
+      hondleMobile('kdanmobile', kdanmobileRef.current)
+    }
   }, [])
 
   return (
     <>
       <ScrollTarget ref={gsap} />
-      <div className="fixed top-10 z-30 w-full">
+      <div className="top-10 z-20 mt-12 w-full sm:fixed sm:mt-0">
         <div className="relative mx-auto mb-12 max-w-[450px] opacity-0" ref={sponsorTalkRef}>
           <img className="hidden h-[145px] w-full sm:block" src={talk} alt="talk" />
-          <img className="h-[80px] object-fill sm:hidden" src={talkMoble} alt="talk" />
+          <img className="h-[80px] object-fill sm:hidden" src={talkMobile} alt="talk" />
           <p className="absolute top-4 mb-6 w-full text-center text-2xl text-primary sm:top-10 sm:text-5xl">贊助單位</p>
         </div>
-        <ul className="mx-auto flex w-full max-w-[1200px] justify-between">
-          <li className="group relative flex w-[315px] flex-col items-center opacity-0" ref={blockstudioRef}>
+        <ul className="mx-auto flex w-full max-w-[1200px] flex-col items-center justify-between sm:flex-row">
+          <li
+            className="group relative mb-11 flex w-[315px] flex-col items-center opacity-0 sm:mb-0"
+            ref={blockstudioRef}
+          >
             <img className="mb-4 group-hover:hidden" src={btnSponsor} alt="btnSponsor" />
             <img className="mb-4 hidden group-hover:block" src={btnSponsorHover} alt="btnSponsorHover" />
             <img
@@ -79,7 +97,10 @@ const SponsorSection: React.FC = () => {
             />
             <div className="w-fit rounded-3xl border border-info px-6 py-1 text-2xl text-info">#版塊設計</div>
           </li>
-          <li className="group relative flex w-[315px] flex-col items-center opacity-0" ref={titansoftRef}>
+          <li
+            className="group relative mb-11 flex w-[315px] flex-col items-center opacity-0 sm:mb-0"
+            ref={titansoftRef}
+          >
             <img className="mb-4 group-hover:hidden" src={btnSponsor} alt="btnSponsor" />
             <img className="mb-4 hidden group-hover:block" src={btnSponsorHover} alt="btnSponsorHover" />
             <img
@@ -89,7 +110,10 @@ const SponsorSection: React.FC = () => {
             />
             <div className="w-fit rounded-3xl border border-info px-6 py-1 text-2xl text-info">#鈦坦科技</div>
           </li>
-          <li className="group relative flex w-[315px] flex-col items-center opacity-0" ref={kdanmobileRef}>
+          <li
+            className="group relative mb-11 flex w-[315px] flex-col items-center opacity-0 sm:mb-0"
+            ref={kdanmobileRef}
+          >
             <img className="mb-4 group-hover:hidden" src={btnSponsor} alt="btnSponsor" />
             <img className="mb-4 hidden group-hover:block" src={btnSponsorHover} alt="btnSponsorHover" />
             <img

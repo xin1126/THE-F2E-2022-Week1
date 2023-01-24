@@ -183,7 +183,7 @@ const Map: React.FC = () => {
     tempDistance.current = distance
   }, [distance])
   return (
-    <div className="fixed left-2 bottom-4 z-40">
+    <div className="fixed left-2 bottom-4 z-40 hidden xl:block">
       <img src={map} alt="map" ref={mapRef} />
       <img className="hidden" src={mapFinish} alt="mapFinish" ref={mapFinishRef} />
       <img className="absolute top-[50px] w-[34px]" src={mapNow} alt="mapNow" ref={mapNowRef} />

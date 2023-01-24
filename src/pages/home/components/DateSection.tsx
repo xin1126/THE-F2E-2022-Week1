@@ -1,7 +1,8 @@
 import { useDistanceContext } from '@/context/distanceContext'
 import ScrollTarget, { ScrollTargetHandle } from '@/components/ScrollTarget'
 
-import { main, btn } from '@/lib/images'
+import { main, btn, bg } from '@/lib/images'
+const { talkMobile } = bg
 const { joinHand, btnJoin } = btn
 const { dateLine, weekLine, start, upload } = main
 
@@ -23,9 +24,11 @@ const DateSection: React.FC = () => {
   const uploaContentRef = useRef<HTMLDivElement>(null)
   const uploadLineRef = useRef<HTMLImageElement>(null)
 
+  const dateTalkRef = useRef<HTMLDivElement>(null)
+
   const gsap = useRef<ScrollTargetHandle>(null)
 
-  const { distance, setDistance } = useDistanceContext()
+  const { isMobile, distance, setDistance } = useDistanceContext()
 
   const handleExit = () => {
     const dateExit = {
@@ -59,7 +62,7 @@ const DateSection: React.FC = () => {
   const handleUpload = () => {
     const upload = {
       id: 'upload',
-      dom: null,
+      dom: isMobile ? uploaSectionRef.current : null,
       fc: handleExit,
     }
     const useGsap = gsap.current?.handleGsap(upload)
@@ -76,7 +79,7 @@ const DateSection: React.FC = () => {
   const handleStart = () => {
     const start = {
       id: 'start',
-      dom: null,
+      dom: isMobile ? startSectionRef.current : null,
       fc: handleUpload,
     }
     const useGsap = gsap.current?.handleGsap(start)
@@ -93,7 +96,7 @@ const DateSection: React.FC = () => {
   const handleSingup = () => {
     const singup = {
       id: 'singup',
-      dom: null,
+      dom: isMobile ? singupSectionRef.current : null,
       fc: handleStart,
     }
     const useGsap = gsap.current?.handleGsap(singup)
@@ -138,20 +141,40 @@ const DateSection: React.FC = () => {
       })
   }
 
+  const handleTalk = () => {
+    const dateTalk = {
+      id: 'dateTalk',
+      dom: dateTalkRef.current,
+    }
+    const useGsap = gsap.current?.handleGsap(dateTalk)
+    useGsap?.to(dateTalkRef.current, { opacity: 1 })
+  }
+
   useLayoutEffect(() => {
-    handleLine()
+    if (isMobile) {
+      handleTalk()
+      handleSingup()
+      handleStart()
+      handleUpload()
+    } else {
+      handleLine()
+    }
   }, [])
 
   return (
     <>
       <ScrollTarget ref={gsap} />
       <div
-        className="fixed top-[60%] z-10 hidden max-w-[1000px] min-[1800px]:top-[45%] min-[1800px]:max-w-[1440px]"
+        className="top-[60%] z-10 mt-12 w-full max-w-[1000px] sm:fixed sm:mt-0 lg:hidden min-[1800px]:top-[45%] min-[1800px]:max-w-[1440px]"
         ref={DateSectionRef}
       >
-        <div ref={hiddenLineRef} className="absolute top-0 z-10 h-[300px] w-full bg-background"></div>
-        <img ref={lineRef} className="opacity-0" src={dateLine} alt="line" />
-        <ul className="relative top-[-465px] flex w-full justify-around pb-[350px] min-[1800px]:top-[-480px]">
+        <div className="relative mx-auto mb-12 w-full opacity-0" ref={dateTalkRef}>
+          <img className="h-[80px] object-fill sm:hidden" src={talkMobile} alt="talk" />
+          <p className="absolute top-4 w-full text-center text-2xl text-primary sm:top-10 sm:text-4xl">重要時程</p>
+        </div>
+        <div ref={hiddenLineRef} className="absolute top-0 z-10 hidden h-[300px] w-full bg-background lg:block"></div>
+        <img ref={lineRef} className="hidden opacity-0 lg:block" src={dateLine} alt="line" />
+        <ul className="top-[-465px] flex w-full flex-col items-center justify-around pb-[350px] sm:relative sm:flex-row sm:items-start min-[1800px]:top-[-480px]">
           <li>
             <div className="relative z-10 bg-background" ref={singupSectionRef}>
               <div className="flex flex-col items-center opacity-0" ref={singupContentRef}>
@@ -164,9 +187,9 @@ const DateSection: React.FC = () => {
                 <p className="mb-2 text-lg text-info">截止前可修改報名組別</p>
               </div>
             </div>
-            <img className="h-[140px] opacity-0" src={weekLine} alt="weekLine" ref={singupLineRef} />
+            <img className="hidden h-[140px] opacity-0 lg:block" src={weekLine} alt="weekLine" ref={singupLineRef} />
           </li>
-          <li className="relative  top-[-6px] min-[1800px]:top-[-14px]">
+          <li className="relative  top-[-6px] mb-16 sm:mb-0 min-[1800px]:top-[-14px]">
             <div className="relative top-16 z-10 bg-background" ref={startSectionRef}>
               <div className="flex flex-col items-center opacity-0" ref={startContentRef}>
                 <img className="w-[140px]" src={start} alt="start" />
@@ -179,7 +202,7 @@ const DateSection: React.FC = () => {
             </div>
             <div className="relative  opacity-0" ref={startLineRef}>
               <div className="absolute right-1/2 z-10 h-[60px] w-[10px] translate-x-[50%] bg-background"></div>
-              <img className="h-[140px]" src={weekLine} alt="weekLine" />
+              <img className="hidden h-[140px] lg:block" src={weekLine} alt="weekLine" />
             </div>
           </li>
           <li className="relative top-[10px]">
@@ -194,7 +217,7 @@ const DateSection: React.FC = () => {
             </div>
             <div className="relative  opacity-0" ref={uploadLineRef}>
               <div className="absolute right-1/2 z-10 h-[40px] w-[10px] translate-x-[50%] bg-background"></div>
-              <img className="h-[140px]" src={weekLine} alt="weekLine" />
+              <img className="hidden h-[140px] lg:block" src={weekLine} alt="weekLine" />
             </div>
           </li>
         </ul>

@@ -25,7 +25,7 @@ const FirstSection: React.FC<Props> = ({ resetFirst }) => {
   const goTextRef = useRef<HTMLParagraphElement>(null)
   const gsap = useRef<ScrollTargetHandle>(null)
 
-  const { distance, setDistance } = useDistanceContext()
+  const { isMobile, distance, setDistance } = useDistanceContext()
 
   const handleHeader = () => {
     const header = {
@@ -111,14 +111,15 @@ const FirstSection: React.FC<Props> = ({ resetFirst }) => {
       })
   }
 
-  const handleMoble = () => {
+  const handleMobile = () => {
     const firstMobile = {
       id: 'firstMobile',
-      dom: null,
+      dom: isMobile ? headerGroupRef.current : null,
       fc: () => setDistance(distance + 1),
+      last: true,
     }
     const useGsap = gsap.current?.handleGsap(firstMobile)
-    useGsap?.to([headerGroupRef.current, cloudGroupRef.current], { opacity: 0 })
+    useGsap?.to([headerGroupRef.current, cloudGroupRef.current, readyFrameRef.current], { opacity: 0 })
   }
 
   useEffect(() => {
@@ -130,7 +131,7 @@ const FirstSection: React.FC<Props> = ({ resetFirst }) => {
           handleReadyFrame()
         },
         '(max-width: 640px)': () => {
-          handleMoble()
+          handleMobile()
         },
       })
     }, 500)
@@ -144,27 +145,27 @@ const FirstSection: React.FC<Props> = ({ resetFirst }) => {
         className="z-10 mt-12 flex w-full max-w-[1000px] flex-col items-center sm:fixed sm:mt-0 min-[1800px]:max-w-[1300px]
       "
       >
-        <img className="mb-3 mt-12 w-[250px] sm:hidden" src={logo} alt="logo" />
+        <img className="mb-3 mt-12 w-[200px] sm:hidden" src={logo} alt="logo" />
         <img className="mt-10 hidden max-w-[500px] sm:block min-[1800px]:max-w-[680px]" src={logoText} alt="logoText" />
-        <div className="mb-5 w-fit rounded-3xl bg-secondary px-4 py-2 text-xl text-white sm:mb-0 sm:px-10 sm:text-3xl">
+        <div className="w-fit rounded-3xl bg-secondary px-4 py-2 text-xl text-white sm:px-10 sm:text-3xl">
           互動式網頁設計
         </div>
-        <ul ref={joinInfoGroupRef} className="mt-5 w-full justify-around px-10 text-2xl sm:flex">
-          <li className="mb-4 flex flex-col items-center sm:mb-0">
+        <ul ref={joinInfoGroupRef} className="mt-2 w-full justify-around px-10 text-base sm:mt-5 sm:flex sm:text-2xl">
+          <li className="mb-2 flex flex-col items-center sm:mb-4 sm:mb-0">
             <p className="mb-2 text-primary">前端工程師</p>
             <div className="relative flex w-fit rounded-3xl bg-primary px-7 py-1 text-white">
               <img className="mr-3 w-5" src={user} alt="user" />
               920
             </div>
           </li>
-          <li className="mb-4 flex flex-col items-center sm:mb-0">
+          <li className="mb-2 flex flex-col items-center sm:mb-4 sm:mb-0">
             <p className="mb-2 text-primary">UI設計師</p>
             <div className="relative flex w-fit rounded-3xl bg-primary px-7 py-1 text-white">
               <img className="mr-3 w-5" src={user} alt="user" />
               110
             </div>
           </li>
-          <li className="mb-4 flex flex-col items-center sm:mb-0">
+          <li className="mb-2 flex flex-col items-center sm:mb-4 sm:mb-0">
             <p className="mb-2 text-primary">團體組</p>
             <div className="relative flex w-fit rounded-3xl bg-primary px-7 py-1 text-white">
               <img className="mr-3 w-5" src={user} alt="user" />
@@ -174,7 +175,7 @@ const FirstSection: React.FC<Props> = ({ resetFirst }) => {
         </ul>
         <img className="absolute top-0 -z-10 hidden max-w-[1430px] xl:block" src={firstStart} alt="firstStart" />
       </div>
-      <div ref={cloudGroupRef} className="fixed top-[60%] flex w-full justify-between sm:top-[40%] xl:px-[5%]">
+      <div ref={cloudGroupRef} className="fixed top-[50%] flex w-full justify-between sm:top-[40%] xl:px-[5%]">
         <img
           className="relative -left-[20%] w-[200px] sm:left-0 sm:w-[300px] xl:w-[430px]"
           src={leftSolidCloud}
@@ -186,7 +187,10 @@ const FirstSection: React.FC<Props> = ({ resetFirst }) => {
           alt="rightSolidCloud"
         />
       </div>
-      <div ref={readyFrameRef} className="fixed top-[40%] right-0 z-10 hidden xl:block">
+      <div
+        ref={readyFrameRef}
+        className="fixed right-0 top-[60%] z-10 translate-x-[90px] scale-[0.4] sm:top-[40%] sm:translate-x-0 sm:scale-100"
+      >
         <p className="mr-4 text-center text-3xl text-secondary" ref={readyTextRef}>
           READY?
         </p>

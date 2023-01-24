@@ -23,6 +23,7 @@ const Home: React.FC = () => {
   const [through, setThrough] = useState<string[]>([])
   const [resetFirst, setResetFirst] = useState(0)
   const [loading, setLoading] = useState(true)
+  const [isMobile, setIsMobile] = useState(false)
   const setTimerRef = useRef<number | null>(null)
   const bgRef = useRef<HTMLDivElement>(null)
 
@@ -89,8 +90,11 @@ const Home: React.FC = () => {
   }, [distance])
 
   useEffect(() => {
-    if (device.mobile()) return
+    const isMobile = window.innerWidth < 640
+    setIsMobile(isMobile)
+    if (isMobile) return
     window.addEventListener('resize', () => {
+      setIsMobile(window.innerWidth < 640)
       clearTimeout(setTimerRef.current || 0)
       resizeReset()
     })
@@ -112,13 +116,13 @@ const Home: React.FC = () => {
   }, [loading])
 
   return (
-    <DistanceContext.Provider value={{ distance, setDistance }}>
+    <DistanceContext.Provider value={{ isMobile, distance, setDistance }}>
       <div className="bg-background">
         <div style={{ clipPath: 'circle(0%)' }} className="h-screen bg-background" ref={bgRef}>
-          <div className="flex h-[2900vh] flex-col items-center overflow-hidden bg-background">
+          <div className="flex flex-col items-center overflow-hidden bg-background sm:h-[2900vh]">
             <HeaderSection />
             <FirstSection resetFirst={resetFirst} />
-            {main.map((item) => through.includes(item.tag) && <item.section key={item.distance} />)}
+            {main.map((item) => (through.includes(item.tag) || isMobile) && <item.section key={item.distance} />)}
             <FooterSection />
             <MapSection />
           </div>

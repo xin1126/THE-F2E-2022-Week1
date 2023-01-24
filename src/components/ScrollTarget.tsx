@@ -20,18 +20,17 @@ const ScrollTarget: React.ForwardRefRenderFunction<ScrollTargetHandle> = (props,
   const trigger = useRef<HTMLDivElement | null>(null)
   const [top, setTop] = useState('')
 
-  const { setDistance } = useDistanceContext()
+  const { isMobile, setDistance } = useDistanceContext()
 
   useImperativeHandle(forwardedRef, () => ({
     handleGsap(val: HandleGsap) {
       const { id, dom, fc, last } = val
       if (ScrollTrigger.getById(id)) return
-
       const useGsap = gsap.timeline({
         scrollTrigger: {
           trigger: dom || trigger.current,
           start: top,
-          end: dom ? 'top 30%' : 0,
+          end: dom ? 'top 20%' : 0,
           scrub: true,
         },
       })
@@ -40,7 +39,7 @@ const ScrollTarget: React.ForwardRefRenderFunction<ScrollTargetHandle> = (props,
         id,
         trigger: trigger.current,
         onLeave() {
-          if (fc) fc()
+          if (fc && !isMobile) fc()
         },
         onEnterBack() {
           if (last) setDistance((data: number) => data - 1)
@@ -53,7 +52,7 @@ const ScrollTarget: React.ForwardRefRenderFunction<ScrollTargetHandle> = (props,
 
   const handleTop = () => {
     if (window.innerWidth < 640) {
-      setTop('top 45%')
+      setTop('top 40%')
     } else {
       setTop('top 70%')
     }

@@ -1,3 +1,4 @@
+import device from 'current-device'
 import { gsap } from 'gsap'
 
 import images, { character } from '@/lib/images'
@@ -47,7 +48,7 @@ const Loading: React.FC<Props> = ({ setLoading }) => {
 
   useEffect(() => {
     gsap.to(loadingRef.current, {
-      x: 470,
+      x: device.mobile() ? 305 : 470,
       duration: 2.5,
       onComplete() {
         dispatch({ type: 'gsapComplete', payload: true })
@@ -84,9 +85,11 @@ const Loading: React.FC<Props> = ({ setLoading }) => {
         </div>
         <img src={images.main.road} alt="road" />
       </div>
-      <div className="relative h-[10px] w-[465px] rounded-3xl border-2 border-primary">
+      <div className="relative h-[10px] w-[300px] overflow-hidden rounded-3xl border-2 border-primary sm:w-[465px]">
         <div className="relative top-[-1px] -z-20 h-[8px] w-full rounded-3xl bg-primary"></div>
-        <div className="absolute top-0 left-0 -z-10 h-[8px] w-full rounded-3xl bg-background" ref={loadingRef}></div>
+        <div className="absolute top-0 left-0 -z-10 h-[8px] w-full rounded-3xl bg-background" ref={loadingRef}>
+          <div className="absolute top-[-1px] left-[-1px] -z-10 h-[8px] w-[10px] rounded-3xl bg-primary"></div>
+        </div>
       </div>
       {tempImages.map((item) => (
         <img className="hidden" src={item} alt="img" key={item} id="img" />

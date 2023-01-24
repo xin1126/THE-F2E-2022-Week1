@@ -9,7 +9,7 @@ const PracticeSection: React.FC = () => {
   const practiceTextRef = useRef<HTMLParagraphElement>(null)
   const gsap = useRef<ScrollTargetHandle>(null)
 
-  const { distance, setDistance } = useDistanceContext()
+  const { isMobile, distance, setDistance } = useDistanceContext()
 
   const handleExit = () => {
     const practicExit = {
@@ -27,13 +27,13 @@ const PracticeSection: React.FC = () => {
   const handlePracticeText = () => {
     const practiceText = {
       id: 'practiceText',
-      dom: null,
+      dom: isMobile ? practiceTextRef.current : null,
       fc: handleExit,
     }
     const useGsap = gsap.current?.handleGsap(practiceText)
     useGsap?.to(practiceTextRef.current, {
       opacity: 1,
-      fontSize: '48px',
+      fontSize: isMobile ? '28' : '48px',
     })
   }
 
@@ -55,20 +55,25 @@ const PracticeSection: React.FC = () => {
   }
 
   useLayoutEffect(() => {
-    handleCloudGroup()
+    if (isMobile) {
+      handlePracticeText()
+    } else {
+      handleCloudGroup()
+    }
   }, [])
 
   return (
     <>
       <ScrollTarget ref={gsap} />
-      <div className="fixed top-[25%] z-20 w-full">
+      <div className="top-[25%] z-20 w-full sm:fixed">
         <p
-          className="absolute right-1/2 -top-16 z-10 translate-x-[50%] whitespace-nowrap text-[100px] text-secondary opacity-0"
+          className="right-1/2 -top-16 z-10 whitespace-nowrap text-center text-6xl text-secondary opacity-0 sm:absolute lg:translate-x-[50%] lg:text-[100px]"
           ref={practiceTextRef}
         >
-          區區修煉已經無法滿足了嗎？
+          區區修煉 <br className="lg:hidden" />
+          已經無法滿足了嗎？
         </p>
-        <div className="flex justify-between opacity-0" ref={cloudGroupRef}>
+        <div className="hidden justify-between opacity-0 lg:flex" ref={cloudGroupRef}>
           <img className="relative -left-20 w-[360px]" src={leftHollowCloud} alt="leftHollowCloud" />
           <img className="relative -right-20 w-[450px]" src={rightHollowCloud} alt="rightHollowCloud" />
         </div>

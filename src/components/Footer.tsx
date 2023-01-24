@@ -37,11 +37,17 @@ const Footer: React.FC = () => {
 
   const tempGsap = useRef<ScrollTargetHandle>(null)
 
-  const { distance, setDistance } = useDistanceContext()
+  const { isMobile, distance, setDistance } = useDistanceContext()
 
-  const mobile = () => {
+  const mobileSmall = () => {
     gsap.to(footerGroupRef.current, {
-      'max-width': '250px',
+      width: '250px',
+    })
+  }
+
+  const mobileBig = () => {
+    gsap.to(footerGroupRef.current, {
+      width: 'auto',
     })
   }
 
@@ -210,24 +216,23 @@ const Footer: React.FC = () => {
         pcBig()
         break
       case 1:
-        mobile()
         pcSmall()
-        handleGrassFirst()
+        ScrollTrigger.matchMedia({
+          '(min-width: 640px)': () => {
+            handleGrassFirst()
+          },
+        })
         break
       case 2:
-        mobile()
         pcBig()
         break
       case 3:
-        mobile()
         pcSmall()
         break
       case 4:
-        mobile()
         pcBig()
         break
       case 5:
-        mobile()
         ScrollTrigger.matchMedia({
           '(min-width: 640px)': () => {
             gsap.to(footerGroupRef.current, {
@@ -242,7 +247,6 @@ const Footer: React.FC = () => {
         })
         break
       case 6:
-        mobile()
         pcSmall()
         ScrollTrigger.matchMedia({
           '(min-width: 640px)': () => {
@@ -251,18 +255,16 @@ const Footer: React.FC = () => {
         })
         break
       case 7:
-        mobile()
         pcSmall()
         ScrollTrigger.matchMedia({
           '(min-width: 640px)': () => {
             gsap.to(catRef.current, { padding: '0 20px' })
+            handleTreeFirst()
           },
         })
-        handleTreeFirst()
         break
       case 8:
         parallaxRef.current?.disable()
-        mobile()
         pcBig()
         ScrollTrigger.matchMedia({
           '(min-width: 640px)': () => {
@@ -287,6 +289,21 @@ const Footer: React.FC = () => {
     }
   }, [])
 
+  useEffect(() => {
+    if (isMobile) {
+      window.addEventListener('scroll', () => {
+        const scrollTop = document.documentElement.scrollTop
+        const scrollHeight = document.documentElement.scrollHeight
+        if (scrollTop > scrollHeight - 1000) return mobileBig()
+        if (scrollTop > 120) {
+          mobileSmall()
+        } else {
+          mobileBig()
+        }
+      })
+    }
+  }, [isMobile])
+
   return (
     <>
       <ScrollTarget ref={tempGsap} />
@@ -309,31 +326,33 @@ const Footer: React.FC = () => {
           />
         </div>
         <img src={road} alt="road" />
-        <img
-          style={{ transform: 'rotateY(180deg)' }}
-          className="absolute -bottom-[30%] -left-[10%] -z-10 w-[150px] opacity-0"
-          src={grass}
-          alt="grass"
-          ref={grassLeftRef}
-        />
-        <img
-          className="absolute -bottom-[30%] -right-[10%] -z-10 w-[150px] opacity-0"
-          src={grass}
-          alt="grass"
-          ref={grassRightRef}
-        />
-        <img
-          className="absolute -bottom-[40%] -left-[30%] -z-10 w-[250px] opacity-0"
-          src={treeLeft}
-          alt="treeLeft"
-          ref={treeLeftRef}
-        />
-        <img
-          className="absolute -bottom-[40%] -right-[30%] -z-10 w-[250px] opacity-0"
-          src={treeRight}
-          alt="treeLeft"
-          ref={treeRightRef}
-        />
+        <div className="hidden xl:block">
+          <img
+            style={{ transform: 'rotateY(180deg)' }}
+            className="absolute -bottom-[30%] -left-[10%] -z-10 w-[150px] opacity-0"
+            src={grass}
+            alt="grass"
+            ref={grassLeftRef}
+          />
+          <img
+            className="absolute -bottom-[30%] -right-[10%] -z-10 w-[150px] opacity-0"
+            src={grass}
+            alt="grass"
+            ref={grassRightRef}
+          />
+          <img
+            className="absolute -bottom-[40%] -left-[30%] -z-10 w-[250px] opacity-0"
+            src={treeLeft}
+            alt="treeLeft"
+            ref={treeLeftRef}
+          />
+          <img
+            className="absolute -bottom-[40%] -right-[30%] -z-10 w-[250px] opacity-0"
+            src={treeRight}
+            alt="treeLeft"
+            ref={treeRightRef}
+          />
+        </div>
       </div>
       <img className="fixed -top-[8%] z-10 hidden" src={finish} alt="finish" ref={finishRef} />
       <div className="fixed bottom-[20%] z-20 flex w-screen">
@@ -350,7 +369,7 @@ const Footer: React.FC = () => {
           ref={finishLineRightRef}
         />
       </div>
-      <div className="fixed right-4 bottom-4 w-[80px] cursor-pointer" ref={joinRef}>
+      <div className="fixed right-4 bottom-4 hidden w-[80px] cursor-pointer xl:block" ref={joinRef}>
         <p className="mb-2 text-center text-2xl text-primary">JOIN</p>
         <img src={joinHand} alt="joinHand" />
         <img src={btnJoin} alt="btnJoin" />
