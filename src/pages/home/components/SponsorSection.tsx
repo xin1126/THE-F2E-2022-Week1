@@ -77,7 +77,7 @@ const SponsorSection: React.FC = () => {
   return (
     <>
       <ScrollTarget ref={gsap} />
-      <div className="top-10 z-20 mt-12 w-full sm:fixed sm:mt-0">
+      <div className="top-10 z-20 mt-12 w-full sm:fixed sm:mt-0 lg:z-30">
         <div className="relative mx-auto mb-12 max-w-[450px] opacity-0" ref={sponsorTalkRef}>
           <img className="hidden h-[145px] w-full sm:block" src={talk} alt="talk" />
           <img className="h-[80px] object-fill sm:hidden" src={talkMobile} alt="talk" />
